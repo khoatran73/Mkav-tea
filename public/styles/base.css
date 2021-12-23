@@ -1,0 +1,140 @@
+:root {
+    --primary: #AC773C;
+    --text: #191A19;
+    --second-text: #737373;
+    --text-white : #F6F6F6;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+img {
+    width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    pointer-events: none;
+}
+
+a {
+    text-decoration: none;
+    pointer-events: auto;
+}
+
+ul, ol, li {
+    list-style: none;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body, button {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    color: var(--text);
+}
+
+
+h1, h2, h4 {
+    font-family: 'Baloo 2', cursive;
+}
+
+h1 {
+    font-size: 5.8rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+h2 {
+    font-size: 3.6rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+h3 {
+    font-size: 3.0rem;
+    font-weight: 600;
+    letter-spacing: -1px;
+}
+
+h4 {
+    font-size: 2.4rem;
+    font-weight: 600;
+}
+
+.btn {
+    background-color: var(--primary);
+    min-width: 108px;
+    border: 2px solid transparent;
+    outline: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: 10px 20px;
+    color: #fff;
+    text-align: center;
+    transition: ease-in-out 0.3s;
+}
+
+.btn-sm {
+    padding: 6px 12px;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.btn-transparent {
+    background-color: #fff;
+    color: var(--text);
+    border: 2px solid var(--text);
+}
+
+.btn-md {    
+    padding: 12px 24px;
+    font-size: 1.7rem;
+    font-weight: 600;
+}
+
+.btn-lg {
+    padding: 18px 36px;
+    font-size: 2rem;
+    font-weight: 700;
+    background-color: transparent;
+    border: 2px solid #fff;
+}
+
+.btn:hover {
+    background-color: var(--text);
+}
+
+.btn-lg:hover {
+    background-color: var(--primary);
+    border: 2px solid transparent;
+}
+
+.btn-transparent:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+    background-color: white;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 5px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.25);
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: rgb(189, 189, 189);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #666464;
+}

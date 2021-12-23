@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store List</title>
+    <link rel="shortcut icon" href="images/mkav-tea/logo_transparent.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+        integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Baloo+2:wght@600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="scripts/index.js"></script>
+
+</head>
+<style>
+
+</style>
+
+<body>
+    <div class="wrapper">
+        <header class="header" id="header">
+            <div class="container">
+                <div class="nav-bar">
+                    <div class="header-logo">
+                        <a href="/">
+                            <img src="images/mkav-tea/logo_transparent.png" alt="">
+                        </a>
+                    </div>
+                    <ul class="menu">
+                        <a href="">
+                            <li class="menu-item">Trang Chủ</li>
+                        </a>
+                        <a href="order.html">
+                            <li class="menu-item">Sản Phẩm</li>
+                        </a>
+                        <a href="store.html">
+                            <li class="menu-item">Cửa Hàng</li>
+                        </a>
+                        <a href="/">
+                            <li class="menu-item">Liên Hệ</li>
+                        </a>
+                        <li class="btn-group">
+                            <button class="btn">Log In</button>
+                            <button class="btn btn-transparent">Sign Up</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <section class="section-map">
+            <div class="container">
+                <div class="map-form">
+                    <i class="fas fa-chevron-down"></i>
+                    <select id="map-select">
+                        <option value="1">TP. Hồ Chí Minh</option>
+                        <option value="2">Phú Yên</option>
+                        <option value="3">Kiên Giang</option>
+                        <option value="4">Đồng Tháp</option>
+                    </select>
+                    <button id="btn-search-location" class="btn btn-md">Tìm cửa hàng</button>
+                </div>
+                <div class="map-wrapper">
+                    <div class="store-list" id="store-list">
+                        <h2>Phú Yên</h2>
+                        <ul id="list-location">
+                        </ul>
+                    </div>
+                    <div id="map"></div>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <div class="container">
+                <div class="footer">
+                    <div class="footer-logo">
+                        <img src="images/mkav-tea/logo_transparent.png" alt="">
+
+                    </div>
+                    <div class="footer-contact">
+                        <h4>Mkav Tea Việt Nam</h4>
+                        <ul>
+                            <li>
+                                <i class="fas fa-map-marker"></i>
+                                19 Nguyễn Hữu Thọ, Tân Phong, Quận 7, TP HCM
+                            </li>
+                            <li>
+                                <i class="fas fa-phone"></i>
+                                0865997531
+                            </li>
+                            <li>
+                                <i class="fas fa-envelope"></i>
+                                trananhkhoa73@gmail.com
+                            </li>
+                            <li>
+                                Số ĐKKD: 123456789. Ngày cấp: 26/10/2021
+                            </li>
+                            <li>
+                                Nơi cấp: Thành phố Hồ Chí Minh
+                            </li>
+                            <li class="social-icons">
+                                <a href=""><i class="fab fa-facebook-square"></i></a>
+                                <a href=""><i class="fab fa-instagram"></i></a>
+                                <a href=""><i class="fab fa-twitter"></i></a>
+                                <a href=""><i class="fab fa-youtube"></i></a>
+                                <a href=""><i class="fab fa-tiktok"></i></a>
+                            </li>
+                            <li class="footer-download">
+                                <a href=""><img src="images/ggplay.png" alt=""></a>
+                                <a href=""><img src="images/appstore.png" alt=""></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer-content">
+                        <h4>Về Chúng Tôi</h4>
+                        <ul>
+                            <a href="">
+                                <li>Giới thiệu về Mkav Tea</li>
+                            </a>
+                            <a href="">
+                                <li>Chính sách nhượng quyền</li>
+                            </a>
+                            <a href="">
+                                <li>Tin tức khuyến mại</li>
+                            </a>
+                            <a href="">
+                                <li>Cửa hàng</li>
+                            </a>
+                        </ul>
+                    </div>
+                    <div class="footer-content">
+                        <h4>Chính Sách</h4>
+                        <ul>
+                            <a href="">
+                                <li>Chính sách thành viên</li>
+                            </a>
+                            <a href="">
+                                <li>Hình thức thanh toán</li>
+                            </a>
+                            <a href="">
+                                <li>Bảo vệ thông tin cá nhân</li>
+                            </a>
+                            <a href="">
+                                <li>Đổi trả và hoàn tiền</li>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <h4>Mkav Tea - Thương hiệu trà sữa sử dụng 100% nông sản Việt Nam</h4>
+                    <p>Copyrights © 2021 by Mkav Tea</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwUCViuntJ40MGwlajpo7vmgiFhpnwxxE&callback=showMap"
+        async></script>
+    <script src="js/store.js"></script>
+</body>
+
+</html>
