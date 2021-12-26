@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mkav Tea</title>
+    <link rel="shortcut icon" href="../images/mkav-tea/logo_transparent.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Baloo+2:wght@600;700&Barlow:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles/admin.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <header class="order-header">
+            <div class="container">
+                <a href="/" class="order-header-logo">
+                    <img src="../images/mkav-tea/logo_transparent.png" alt="">
+                </a>
+                <li class="btn-group user-group">
+                    <a href="/admin/?tab=employee-manager"><img src="../<%= admin.image %>" alt=""></a>
+                </li>
+            </div>
+        </header>
+        <section class="profile-main">
+            <div class="container">
+                <div class="profile-main__left">
+                    <div class="profile-main__left--item active">
+                        <i class="fas fa-user-alt"></i>
+                        Quản lí nhân viên
+                    </div>
+                    <div class="profile-main__left--item">
+                        <i class="fas fa-reply-all"></i>
+                        Quản lí các yêu cầu
+                    </div>
+                    <div class="profile-main__left--item">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <div id="logout">Đăng xuất</div>
+                    </div>
+                    <script>
+                        $("#logout").click(function () {
+                            window.location.href = "/user/logout"
+                        })
+                    </script>
+                </div>
+                <div class="profile-main__right">
+                    <div class="tab" id="admin">
+                        <div class="btn-add">
+                            <button type="button" class="btn btn-success" data-target="#add-modal"
+                                data-toggle="modal">Thêm nhân viên</button>
+                        </div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="text-center">#</th>
+                                    <th scope="col" class="text-center">Tên nhân viên</th>
+                                    <th scope="col" class="text-center">Giới tính</th>
+                                    <th scope="col" class="text-center">Email</th>
+                                    <th scope="col" class="text-center">Ảnh</th>
+                                    <th scope="col" class="text-center">Chức vụ</th>
+                                    <th scope="col" class="text-center">Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-body">
+                                <% users.forEach(function(user, index) { %>
+                                    <tr>
+                                        <th scope="row" class="index text-center">
+                                            <%= (index + 1) %>
+                                        </th>
+                                        <td>
+                                            <%= user.name %>
+                                        </td>
+                                        <td class="text-center gender">
+                                            <%= user.gender %>
+                                        <td>
+                                            <%= user.email %>
+                                        </td>
+                                        <td class="text-center"><img src="../<%= user.image %>" alt=""></td>
+                                        <td class="position">
+                                            <%= user.position %>
+                                        </td>
+                                        <td class="text-center">
+                                            <button type="button" class="edit-employee btn btn-sm btn-outline-primary"
+                                                data-id="<%= user._id %>">Sửa</button>
+                                            <button type="button" class="delete-employee btn btn-sm btn-outline-danger"
+                                                data-id="<%= user._id %>">Xóa</button>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+
+    <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Sửa thông tin nhân viên</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" enctype="multipart/form-data" id="edit-form">
+                        <div class="form-group">
+                            <label for="edit-name">Tên</label>
+                            <input type="text" class="form-control" id="edit-name" name="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="male" style="display: block; width: 100%;">Giới tính</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" value="male" id="edit-male"
+                                    checked>
+                                <label class="form-check-label" for="edit-male">
+                                    Nam
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" value="female"
+                                    id="edit-female">
+                                <label class="form-check-label" for="edit-female">
+                                    Nữ
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" value="other"
+                                    id="edit-other">
+                                <label class="form-check-label" for="edit-other">
+                                    Khác
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-email">Email</label>
+                            <input type="email" class="form-control" id="edit-email" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-position">Chức vụ</label>
+                            <select class="form-control" id="edit-position" name="position">
+                                <option value="1">Nhân viên chăm sóc khách hàng</option>
+                                <option value="2">Nhân viên giao hàng</option>
+                                <option value="3">Nhân viên bán hàng</option>
+                                <option value="4">Nhân viên kỹ thuật</option>
+                                <option value="5">Nhân viên kho</option>
+                                <option value="6">Quản lí</option>
+                                <option value="7">Kế toán</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-image">Ảnh đại diện</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="edit-image" name="image" accept="image/png, image/jpeg">
+                                <label class="custom-file-label" for="edit-image">Chọn ảnh...</label>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <button type="submit" id="edit-save-btn" class="btn btn-success">Lưu</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="add-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thêm nhân viên</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/admin/add-employee" method="POST" enctype="multipart/form-data" id="add-form">
+                        <div class="form-group">
+                            <label for="name">Tên</label>
+                            <input type="text" name="name" class="form-control" id="name" placeholder="Nhập tên...">
+                        </div>
+                        <div class="form-group">
+                            <label for="male" style="display: block; width: 100%;">Giới tính</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" value="male" id="male"
+                                    checked>
+                                <label class="form-check-label" for="male">
+                                    Nam
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" value="female" id="female">
+                                <label class="form-check-label" for="female">
+                                    Nữ
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" value="other" id="other">
+                                <label class="form-check-label" for="other">
+                                    Khác
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" name="email" id="email"
+                                placeholder="Nhập email...">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Mật khẩu</label>
+                            <input type="password" class="form-control" name="password" id="password"
+                                placeholder="Nhập mật khẩu...">
+                        </div>
+                        <div class="form-group">
+                            <label for="password2">Xác nhận mật khẩu</label>
+                            <input type="password" class="form-control" name="password2" id="password2"
+                                placeholder="Nhập lại mật khẩu...">
+                        </div>
+                        <div class="form-group">
+                            <label for="position">Chức vụ</label>
+                            <select class="form-control" id="position" name="position">
+                                <option value="1">Nhân viên chăm sóc khách hàng</option>
+                                <option value="2">Nhân viên giao hàng</option>
+                                <option value="3">Nhân viên bán hàng</option>
+                                <option value="4">Nhân viên kỹ thuật</option>
+                                <option value="5">Nhân viên kho</option>
+                                <option value="6">Quản lí</option>
+                                <option value="7">Kế toán</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Ảnh đại diện</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="image" name="image">
+                                <label class="custom-file-label" for="image">Chọn ảnh...</label>
+                            </div>
+                        </div>
+                        <div class="alert alert-danger" id="error-text" role="alert" style="visibility: hidden">
+                            error text
+                        </div>
+                        <div class="text-right">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-success">Lưu</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../scripts/admin.js"></script>
+
+</html>

@@ -32,7 +32,6 @@ class UserController {
                 }
                 else {
                     error = "Email hoặc mật khẩu không đúng" // sai mat khau
-                    console.log("sai mat khau")
                 }
             }
 
@@ -64,7 +63,7 @@ class UserController {
                 message: error
             })
         } else {
-            let { name, email, password } = req.body
+            const { name, gender, email, password } = req.body
 
             if (req.file) {
                 if (!req.file.mimetype.match(/image.*/)) {
@@ -95,8 +94,9 @@ class UserController {
             } else {
                 let userJson = {
                     name: name,
+                    gender: gender,
                     email: email,
-                    position: 0,
+                    position: parseInt(req.body.position) || 0,
                     image: req.file.path.split("\\").slice(1).join("/")
                 }
 
@@ -106,10 +106,48 @@ class UserController {
 
                 return res.json({
                     code: 0,
-                    message: "Success"
+                    message: "Success",
+                    user: user
                 })
             }
         }
+    }
+
+    async editUser(req, res) {
+        const _id = req.query._id
+        const { name, email, position, gender } = req.body
+        let image = ""
+        let user
+
+        await User.findOne({ _id: _id })
+            .then(u => {
+                user = u
+            })
+
+        if (req.file) {
+            image = req.file.path.split("\\").slice(1).join("/")
+            unlink(path.join(__dirname, '../public/' + user.image))
+        }
+
+        await User.updateOne({ _id: _id }, {
+            name: name,
+            email: email,
+            gender: gender,
+            position: position,
+            image: image || user.image
+        })
+            .then(async () => {
+                await User.findOne({ _id: _id })
+                    .then(user => {
+                        res.json({
+                            code: 0, message: "success", user: user
+                        })
+                    })
+
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
     logout(req, res) {

@@ -4,10 +4,13 @@ const crypto = require('crypto')
 
 const User = new Schema({
     name: String,
+    gender: String,
     email: { type: String, unique: true },
     image: String,
     position: Number, // 0: khách hàng, 1: nhân viên chăm sóc, 2: nhân viên giao hàng, 3: nhân viên bán hàng
-                    // 4: nhân viên kỹ thuật, 5: nhân viên kho, 6 quản lí, 7: kế toán
+    // 4: nhân viên kỹ thuật, 5: nhân viên kho, 6 quản lí, 7: kế toán
+    address: String,
+    phone: String,
     hash: String,
     salt: String
 })

@@ -35,13 +35,14 @@ body {
 
 .wrapper {
     width: 450px;
+    max-height: 98vh;
     background-color: white;
     border-radius: 16px;
     box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1), 0 32px 64px -48px rgba(0, 0, 0, 0.5);
 }
 
 .form {
-    padding: 24px 32px;;
+    padding: 12px 32px;;
 }
 
 .form .form-title {
@@ -73,12 +74,17 @@ body {
     margin-bottom: 2px;
 }
 
-.form .form-content .form-group input {
+.form .form-content .form-group input[type=text],
+.form .form-content .form-group input[type=password] {
     padding: 8px 14px;
     font-size: 16px;
     border: 1px solid var(--border-color);
     outline: none;
     border-radius: 5px;
+}
+
+.form-check-label {
+    margin-right: 14px;
 }
 
 .form .form-content .form-group i {

@@ -1,0 +1,40 @@
+@import "style.css";
+
+html {
+    font-size: 100%;
+}
+
+.profile-main__left--item {
+    font-size: 16px;
+}
+
+.profile-main__left--item i {
+    font-size: 14px;
+}
+
+#admin .btn-add {
+    margin: 20px;
+    /* display: flex; */
+    /* justify-content: center;
+    align-items: center; */
+}
+
+#admin table {
+    width: calc(100% - 20px);
+    margin: 0 10px;
+    margin-bottom: 20px;
+}
+
+td img {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+}
+
+.modal-title {
+    color: rgb(8, 138, 127);
+}
+
+.form-group > label {
+    color: rgb(8, 138, 127);
+}
