@@ -14,9 +14,8 @@ const methodOverride = require('method-override')
 const MemoryStore = require('session-memory-store')(expressSession)
 db.connect()
 
-// app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.urlencoded({ extended: true }))
-// app.use(express.json())
+app.use(express.json())
 app.use(cookieParser())
 app.use(cookieSession({
     secret: 'secret',

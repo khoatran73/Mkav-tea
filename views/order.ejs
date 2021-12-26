@@ -16,6 +16,7 @@
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Baloo+2:wght@600;700&Barlow:wght@400;500;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
         integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -33,9 +34,45 @@
                     <i class="fas fa-search"></i>
                     <input type="text" placeholder="Search">
                 </div>
-                <div class="order-header-button">
-                    <a href="" class="btn">Log In</a>
-                </div>
+                <% if (!locals.user) { %>
+                    <li class="btn-group">
+                        <button class="btn" id="login-btn">Đăng Nhập</button>
+                        <button class="btn btn-transparent" id="register-btn">Đăng Ký</button>
+                    </li>
+                    <% } else if (user.position==0) {%>
+                        <li class="btn-group user-group">
+                            <a href="/profile"><img src="<%= user.image %>" alt=""></a>
+                            <div class="dropdown">
+                                <i class="fas fa-sort-down"></i>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <i class="fas fa-user-alt"></i>
+                                        <a href="/profile/?tab=profile">Thông tin tài khoản</a>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-history"></i>
+                                        <a href="/profile/?tab=history">Lịch sử mua hàng</a>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-shopping-cart"></i>
+                                        <a href="/profile/?tab=cart">Giỏ hàng của tôi</a>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-sign-out-alt"></i>
+                                        <a href="/user/logout">Đăng xuất</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <% } else {%>
+                            <li class="btn-group user-group">
+                                <a href="/profile"><img src="<%= user.image %>" alt=""></a>
+                                <div class="dropdown">
+
+                                </div>
+                            </li>
+                            <% }%>
             </div>
         </header>
         <section class="order-main">
@@ -64,83 +101,12 @@
                                     <h5>
                                         Sữa Chua Dâu Tằm Hoàng Kim
                                     </h5>
-                                    <div>
-                                        29.000đ <span>39.000đ</span>
+                                    <div data-price="12">
+                                        12.000đ <span data-price="22">22.000đ</span>
                                     </div>
                                     <i class="fas fa-plus-circle open-popup"></i>
                                 </div>
                             </div>
-                            <div class="product">
-                                <div>
-                                    <img src="images/product/tchk.png" alt="">
-                                </div>
-                                <div class="product-bottom">
-                                    <h5>
-                                        Sữa Chua Dâu Tằm Hoàng Kim
-                                    </h5>
-                                    <div>
-                                        29.000đ <span>39.000đ</span>
-                                    </div>
-                                    <i class="fas fa-plus-circle open-popup"></i>
-                                </div>
-                            </div>
-                            <div class="product">
-                                <div>
-                                    <img src="images/product/tchk.png" alt="">
-                                </div>
-                                <div class="product-bottom">
-                                    <h5>
-                                        Sữa Chua Dâu Tằm Hoàng Kim
-                                    </h5>
-                                    <div>
-                                        29.000đ <span>39.000đ</span>
-                                    </div>
-                                    <i class="fas fa-plus-circle open-popup"></i>
-                                </div>
-                            </div>
-                            <div class="product">
-                                <div>
-                                    <img src="images/product/tchk.png" alt="">
-                                </div>
-                                <div class="product-bottom">
-                                    <h5>
-                                        Sữa Chua Dâu Tằm Hoàng Kim
-                                    </h5>
-                                    <div>
-                                        29.000đ <span>39.000đ</span>
-                                    </div>
-                                    <i class="fas fa-plus-circle open-popup"></i>
-                                </div>
-                            </div>
-                            <div class="product">
-                                <div>
-                                    <img src="images/product/tchk.png" alt="">
-                                </div>
-                                <div class="product-bottom">
-                                    <h5>
-                                        Sữa Chua Dâu Tằm Hoàng Kim
-                                    </h5>
-                                    <div>
-                                        29.000đ <span>39.000đ</span>
-                                    </div>
-                                    <i class="fas fa-plus-circle open-popup"></i>
-                                </div>
-                            </div>
-                            <div class="product">
-                                <div>
-                                    <img src="images/product/tchk.png" alt="">
-                                </div>
-                                <div class="product-bottom">
-                                    <h5>
-                                        Sữa Chua Dâu Tằm Hoàng Kim
-                                    </h5>
-                                    <div>
-                                        29.000đ <span>39.000đ</span>
-                                    </div>
-                                    <i class="fas fa-plus-circle open-popup"></i>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                     <div class="category">
@@ -155,27 +121,12 @@
                                     <h5>
                                         Sữa Chua Dâu Tằm Hoàng Kim
                                     </h5>
-                                    <div>
-                                        29.000đ <span>39.000đ</span>
+                                    <div data-price="12">
+                                        12.000đ <span data-price="22">22.000đ</span>
                                     </div>
                                     <i class="fas fa-plus-circle open-popup"></i>
                                 </div>
                             </div>
-                            <div class="product">
-                                <div>
-                                    <img src="images/product/tchk.png" alt="">
-                                </div>
-                                <div class="product-bottom">
-                                    <h5>
-                                        Sữa Chua Dâu Tằm Hoàng Kim
-                                    </h5>
-                                    <div>
-                                        29.000đ <span>39.000đ</span>
-                                    </div>
-                                    <i class="fas fa-plus-circle open-popup"></i>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
@@ -183,10 +134,10 @@
                     <div class="cart-group-top">
                         <div class="cart-title">
                             <div class="cart-title-left">Giỏ Hàng Của Tôi</div>
-                            <div class="cart-title-right">Xóa tất cả</div>
+                            <div class="cart-title-right" id="remove-all-cart">Xóa tất cả</div>
                         </div>
                         <div class="cart-order">
-                            
+
                         </div>
                     </div>
                     <div class="cart-group-bottom">
@@ -206,17 +157,17 @@
             <div class="popup-content">
                 <div class="popup-info">
                     <div class="popup-info-left">
-                        <img src="images/product/tchk.png" alt="">
+                        <img id="product-image" src="images/product/tchk.png" alt="">
                     </div>
                     <div class="popup-info-right">
                         <div class="name" id="product-name">Sữa Chua Dâu Tằm Hạt Dẻ</div>
                         <div class="price">
                             <div>
                                 <span id="product-price">29.000đ</span>
-                                <span>39.000đ</span>
+                                <span id="old-price">39.000đ</span>
                             </div>
                         </div>
-                        <div class="info">Chưa có thông tin</div>
+                        <div class="info" id="product-info">Chưa có thông tin</div>
                         <div class="quantity">
                             <i class="fas fa-minus-circle" id="reduce-product"></i>
                             <div class="amount" id="product-amount">1</div>
@@ -286,13 +237,20 @@
                         <div class="title">Chọn topping</div>
                         <div class="list-topping">
                             <div class="content">
-                                <label for="topping-1">Thêm trân châu sương mai</label>
-                                <input type="checkbox" name="topping" id="topping-1" value="trân châu sương mai">
+                                <label for="topping-1">
+                                    Thêm trân châu sương mai
+                                    <span>+ 10.000đ</span>
+                                </label>
+                                <input type="checkbox" name="topping" id="topping-1" value="trân châu sương mai"
+                                    data-price="10">
                                 <span class="checkmark-cb"></span>
                             </div>
                             <div class="content">
-                                <label for="topping-2">Thêm khoai môn</label>
-                                <input type="checkbox" name="topping" id="topping-2" value="khoai môn">
+                                <label for="topping-2">
+                                    Thêm khoai môn
+                                    <span>+ 10.000đ</span>
+                                </label>
+                                <input type="checkbox" name="topping" id="topping-2" value="khoai môn" data-price="10">
                                 <span class="checkmark-cb"></span>
                             </div>
                         </div>

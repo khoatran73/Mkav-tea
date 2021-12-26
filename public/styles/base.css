@@ -22,6 +22,7 @@ h1, h2, h3, h4, h5, h6, p {
 a {
     text-decoration: none;
     pointer-events: auto;
+    color: var(--text);
 }
 
 ul, ol, li {

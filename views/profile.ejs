@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mkav Tea</title>
+    <link rel="shortcut icon" href="../images/mkav-tea/logo_transparent.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+        integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Baloo+2:wght@600;700&Barlow:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header class="order-header">
+            <div class="container">
+                <a href="/" class="order-header-logo">
+                    <img src="../images/mkav-tea/logo_transparent.png" alt="">
+                </a>
+                <li class="btn-group user-group">
+                    <img src="../<%= user.image %>" alt="">
+                </li>
+            </div>
+        </header>
+        <section class="profile-main">
+            <div class="container">
+                <div class="profile-main__left">
+                    <div class="profile-main__left--item">
+                        <i class="fas fa-user-alt"></i>
+                        Thông tin tài khoản
+                    </div>
+                    <div class="profile-main__left--item active">
+                        <i class="fas fa-history"></i>
+                        Lịch sử mua hàng
+                    </div>
+                    <div class="profile-main__left--item">
+                        <i class="fas fa-shopping-cart"></i>
+                        Giỏ hàng của tôi
+                    </div>
+                    <div class="profile-main__left--item">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <a href="/user/logout">Đăng xuất</a>
+                    </div>
+                </div>
+                <div class="profile-main__right">
+                    <div class="tab" id="profile">
+                        <div class="bg-top">
+                        </div>
+                        <div class="profile-content">
+                            <div class="avatar">
+                                <img src="../<%= user.image %>" alt="">
+                                <label for="user-image"><i class="fas fa-camera"></i></label>
+                                <input type="file" name="user-image" id="user-image" style="display: none;">
+                            </div>
+                            <div class="profile-form">
+                                <div class="profile-form-item">
+                                    <label for="name">Họ và tên</label>
+                                    <input value="Trần Anh Khoa" type="text" placeholder="Họ tên..." name="name"
+                                        id="name">
+                                </div>
+                                <div class="profile-form-item">
+                                    <label for="email">Email</label>
+                                    <input value="khoa@gmail.com" type="text" placeholder="Email..." name="email"
+                                        id="email">
+                                </div>
+                                <div class="profile-form-item">
+                                    <label for="phone">Số điện thoại</label>
+                                    <input type="text" placeholder="Số điện thoại..." name="phone" id="phone">
+                                </div>
+                                <div class="profile-form-item">
+                                    <label for="address">Địa chỉ</label>
+                                    <input type="text" placeholder="Địa chỉ..." name="address" id="address">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="cart-button">Lưu Thay Đổi</button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
+</body>
+
+</html>

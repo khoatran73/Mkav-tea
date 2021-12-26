@@ -16,6 +16,7 @@
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Baloo+2:wght@600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="scripts/index.js"></script>
 </head>
@@ -34,7 +35,7 @@
                         <a href="/">
                             <li class="menu-item">Trang Chủ</li>
                         </a>
-                        <a href="/product/order">
+                        <a href="/order">
                             <li class="menu-item">Sản Phẩm</li>
                         </a>
                         <a href="/store">
@@ -43,10 +44,46 @@
                         <a href="/contact">
                             <li class="menu-item">Liên Hệ</li>
                         </a>
-                        <li class="btn-group">
-                            <button class="btn" id="login-btn">Đăng Nhập</button>
-                            <button class="btn btn-transparent" id="register-btn">Đăng Ký</button>
-                        </li>
+                        <% if (!locals.user) { %>
+                            <li class="btn-group">
+                                <button class="btn" id="login-btn">Đăng Nhập</button>
+                                <button class="btn btn-transparent" id="register-btn">Đăng Ký</button>
+                            </li>
+                            <% } else if (user.position==0) {%>
+                                <li class="btn-group user-group">
+                                    <a href="/profile"><img src="<%= user.image %>" alt=""></a>
+                                    <div class="dropdown">
+                                        <i class="fas fa-sort-down"></i>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <i class="fas fa-user-alt"></i>
+                                                <a href="/profile/?tab=profile">Thông tin tài khoản</a>
+                                            </li>
+                                            <li>
+                                                <i class="fas fa-history"></i>
+                                                <a href="/profile/?tab=history">Lịch sử mua hàng</a>
+                                            </li>
+                                            <li>
+                                                <i class="fas fa-shopping-cart"></i>
+                                                <a href="/profile/?tab=cart">Giỏ hàng của tôi</a>
+                                            </li>
+                                            <li>
+                                                <i class="fas fa-sign-out-alt"></i>
+                                                <a href="/user/logout">Đăng xuất</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <% } else if (user.position==6) {%>
+                                    <li class="btn-group user-group">
+                                        <a href="/admin"><img src="<%= user.image %>" alt=""></a>
+                                        <div class="dropdown">
+
+                                        </div>
+                                    </li>
+                                    <% }%>
+
                     </ul>
                 </div>
             </div>
@@ -55,8 +92,8 @@
             <div class="text-content">
                 <h1>Tại sao phải giảm cân trong khi có Mkav Tea</h1>
                 <div class="btn-lg-group">
-                    <button class="btn btn-lg">Đặt Ngay</button>
-                    <button class="btn btn-lg">Cửa Hàng</button>
+                    <a href="/order" class="btn btn-lg">Đặt Ngay</a>
+                    <a href="/store" class="btn btn-lg">Cửa Hàng</a>
                     </d>
                 </div>
             </div>
@@ -86,7 +123,7 @@
                             <div class="product-price">
                                 29,000đ <span>39,000đ</span>
                             </div>
-                            <a href="" class="btn btn-sm">
+                            <a href="/order" class="btn btn-sm">
                                 Đặt Hàng
                             </a>
                         </div>
@@ -106,7 +143,7 @@
                             <div class="product-price">
                                 29,000đ <span>39,000đ</span>
                             </div>
-                            <a href="" class="btn btn-sm">
+                            <a href="/order" class="btn btn-sm">
                                 Đặt Hàng
                             </a>
                         </div>
@@ -126,7 +163,7 @@
                             <div class="product-price">
                                 29,000đ <span>39,000đ</span>
                             </div>
-                            <a href="" class="btn btn-sm">
+                            <a href="/order" class="btn btn-sm">
                                 Đặt Hàng
                             </a>
                         </div>
@@ -146,7 +183,7 @@
                             <div class="product-price">
                                 29,000đ <span>39,000đ</span>
                             </div>
-                            <a href="" class="btn btn-sm">
+                            <a href="/order" class="btn btn-sm">
                                 Đặt Hàng
                             </a>
                         </div>
@@ -166,7 +203,7 @@
                             <div class="product-price">
                                 29,000đ <span>39,000đ</span>
                             </div>
-                            <a href="" class="btn btn-sm">
+                            <a href="/order" class="btn btn-sm">
                                 Đặt Hàng
                             </a>
                         </div>
@@ -186,7 +223,7 @@
                             <div class="product-price">
                                 29,000đ <span>39,000đ</span>
                             </div>
-                            <a href="" class="btn btn-sm">
+                            <a href="/order" class="btn btn-sm">
                                 Đặt Hàng
                             </a>
                         </div>
@@ -206,7 +243,7 @@
                             <div class="product-price">
                                 29,000đ <span>39,000đ</span>
                             </div>
-                            <a href="" class="btn btn-sm">
+                            <a href="/order" class="btn btn-sm">
                                 Đặt Hàng
                             </a>
                         </div>
@@ -226,14 +263,14 @@
                             <div class="product-price">
                                 29,000đ <span>39,000đ</span>
                             </div>
-                            <a href="" class="btn btn-sm">
+                            <a href="/order" class="btn btn-sm">
                                 Đặt Hàng
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="product-footer">
-                    <a href="" class="btn btn-md">
+                    <a href="/order" class="btn btn-md">
                         Xem Tất Cả
                     </a>
                 </div>
@@ -263,7 +300,7 @@
                                 <option>Kiên Giang</option>
                                 <option>Đà Nẵng</option>
                             </select>
-                            <a href="" class="btn btn-md">Tìm cửa hàng</a>
+                            <a href="/store" class="btn btn-md">Tìm cửa hàng</a>
                         </div>
 
                     </div>
