@@ -1,11 +1,19 @@
-const Product = require("../models/Product")
+const User = require("../models/User")
 
 class AdminController {
     admin(req, res) {
         res.end("admin")
     }
 
-    addProduct(req, res) {
+    addEmployee(req, res) {
+        console.log(req.body)
+    }
+
+    editEmployee(req, res) {
+        console.log(req.body)
+    }
+
+    deleteEmployee(req, res) {
         console.log(req.body)
     }
 } 
