@@ -23,15 +23,15 @@ class SiteController {
     }
 
     async profile(req, res) {
-        const email = req.session.email || ""
-        await User.find({ email: email })
+        const email = req.session.email
+        await User.findOne({ email: email })
             .then(user => {
-                if (user.length) {
+                if (user) {
                     return res.render('profile', {
-                        user: user[0]
+                        user: user
                     })
                 } else {
-                    return res.render('profile')
+                    return res.redirect("/")
                 }
             })
             .catch(err => {

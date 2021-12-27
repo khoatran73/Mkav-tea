@@ -119,6 +119,13 @@ class UserController {
         let image = ""
         let user
 
+        if (!name || !email || !position || !gender) {
+            if (req.file)
+                unlink(path.join(__dirname, '../public/images/users/' + req.file.filename))
+                
+            return res.json({ code: 1, message: "Không được để trống bất kỳ trường nào" })
+        }
+
         await User.findOne({ _id: _id })
             .then(u => {
                 user = u
@@ -148,6 +155,33 @@ class UserController {
             .catch(err => {
                 console.log(err)
             })
+    }
+
+    async editCustomer(req, res) {
+        const { name, phone, address } = req.body
+        let error
+        if (!name) {
+            // error = "Họ tên không được để trống"
+            return res.json({
+                code: 1,
+                message: "Họ tên không được để trống"
+            })
+        }
+
+        await User.updateOne({ email: req.session.email }, { name: name, phone: phone, address: address })
+            .then(() => {
+                return res.json({
+                    code: 0,
+                    message: "success"
+                })
+            })
+            .catch(err => {
+                return res.json({
+                    code: 1,
+                    message: err.message
+                })
+            })
+
     }
 
     logout(req, res) {

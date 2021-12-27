@@ -85,6 +85,11 @@
     /* position: relative; */
 }
 
+.user-group a {
+    display: flex;
+    align-items: center;
+}
+
 .user-group img {
     width: 38px;
     height: 38px;
@@ -104,31 +109,19 @@
     margin-left: 8px; 
     cursor: pointer;
     position: relative;
-    transition: 0.2s;
-    transition-delay: 0.1s;
+    user-select: none;
 }
 
-.dropdown:before {
-    content: "";
-    width: 200px;
-    height: 14px;
-    right: -4px;
-    position: absolute;
-    top: calc(100% - 2px);
-}
-
-.dropdown:hover {
+.dropdown.active {
     background-color: rgb(238, 235, 235);
 }
 
-.dropdown:hover .dropdown-menu  {
-    visibility: visible;
-    opacity: 1;
+.dropdown.active .dropdown-menu {
+    display: block;
 }
 
 .dropdown .dropdown-menu {
-    visibility: hidden;
-    opacity: 0;
+    display: none;
     background-color: #fff;
     padding: 6px;
     position: absolute;
@@ -1272,6 +1265,7 @@ footer .container {
     border-radius: 5px;
     box-shadow: 0 0 2px 3px rgba(0, 0, 0, 0.05);
     background-color: #fff;
+    user-select: none;
 }
 
 .profile-content .avatar {
@@ -1319,7 +1313,7 @@ footer .container {
     width: 50%;
     display: flex;
     flex-direction: column;
-    padding: 12px 0;
+    padding: 18px 0;
 
 }
 
@@ -1340,6 +1334,30 @@ footer .container {
     color: #6c6e72;
     font-family: 'Barlow', sans-serif;
     border-bottom: 1px solid rgb(240, 240, 240);
+}
+
+.error-input {
+    position: relative;
+}
+
+.error-input input {
+    border-bottom: 1px solid #e92a3d;
+}
+
+.error-input:after {
+    content: "Họ và tên không được để trống";
+    font-size: 1.4rem;
+    font-weight: 400;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    color: #e92a3d;
+}
+
+.profile-form-item input:disabled {
+    background-color: #fff;
+    cursor: not-allowed;
+    user-select: none;
 }
 
 .profile-form-item:nth-child(odd) {

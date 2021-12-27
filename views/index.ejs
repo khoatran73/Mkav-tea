@@ -75,7 +75,28 @@
                                     </div>
                                 </li>
 
-                                <% } else if (user.position == 6) {%>
+                                <script>
+                                    $(".dropdown").click(function (e) {
+                                        event.stopPropagation()
+                                        let parent = e.target
+                                        if (e.target.children.length === 0) {
+                                            parent = e.target.parentNode
+                                        }
+                                        if (!parent.classList.contains("active"))
+                                            parent.classList.add("active")
+                                        else 
+                                        parent.classList.remove("active")
+
+                                        console.log(parent.children[1])
+                                    })
+
+                                    $(window).click(function () {
+                                        if ($(".dropdown").hasClass("active"))
+                                            $(".dropdown").removeClass("active")
+                                    });
+                                </script>
+
+                                <% } else if (user.position==6) {%>
                                     <li class="btn-group user-group">
                                         <a href="/admin/?tab=employee-manager"><img src="<%= user.image %>" alt=""></a>
                                     </li>

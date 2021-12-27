@@ -16,6 +16,7 @@
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Baloo+2:wght@600;700&Barlow:wght@400;500;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../styles/style.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
         integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -36,11 +37,11 @@
         <section class="profile-main">
             <div class="container">
                 <div class="profile-main__left">
-                    <div class="profile-main__left--item">
+                    <div class="profile-main__left--item active">
                         <i class="fas fa-user-alt"></i>
                         Thông tin tài khoản
                     </div>
-                    <div class="profile-main__left--item active">
+                    <div class="profile-main__left--item">
                         <i class="fas fa-history"></i>
                         Lịch sử mua hàng
                     </div>
@@ -61,36 +62,38 @@
                             <div class="avatar">
                                 <img src="../<%= user.image %>" alt="">
                                 <label for="user-image"><i class="fas fa-camera"></i></label>
-                                <input type="file" name="user-image" id="user-image" style="display: none;">
+                                <input type="file" name="user-image" id="user-image" style="display: none;" accept="image/png, image/jpeg">
                             </div>
                             <div class="profile-form">
                                 <div class="profile-form-item">
                                     <label for="name">Họ và tên</label>
-                                    <input value="Trần Anh Khoa" type="text" placeholder="Họ tên..." name="name"
+                                    <input value="<%= user.name %>" type="text" placeholder="Họ tên..." name="name"
                                         id="name">
                                 </div>
                                 <div class="profile-form-item">
-                                    <label for="email">Email</label>
-                                    <input value="khoa@gmail.com" type="text" placeholder="Email..." name="email"
-                                        id="email">
+                                    <label for="">Email</label>
+                                    <input value="<%= user.email %>" type="text" placeholder="Email..." disabled>
                                 </div>
                                 <div class="profile-form-item">
                                     <label for="phone">Số điện thoại</label>
-                                    <input type="text" placeholder="Số điện thoại..." name="phone" id="phone">
+                                    <input <% if (user.phone) { %> value="<%= user.phone %>" <% } %> type="text"
+                                            placeholder="Số điện thoại..." name="phone" id="phone">
                                 </div>
                                 <div class="profile-form-item">
                                     <label for="address">Địa chỉ</label>
-                                    <input type="text" placeholder="Địa chỉ..." name="address" id="address">
+                                    <input <% if (user.address) { %> value="<%= user.address %>" <% } %> type="text"
+                                            placeholder="Địa chỉ..." name="address" id="address">
                                 </div>
                             </div>
                         </div>
-                        <button class="cart-button">Lưu Thay Đổi</button>
+                        <button class="cart-button" id="save-profile-btn">Lưu Thay Đổi</button>
                     </div>
                 </div>
             </div>
 
         </section>
     </div>
+    <script src="../scripts/profile.js"></script>
 </body>
 
 </html>

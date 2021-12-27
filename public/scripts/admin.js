@@ -77,7 +77,9 @@ $("#edit-form").submit(e => {
                         $('#edit-modal').modal('hide')
                         location.reload()
                     })
-
+            } else {
+                $("#edit-error-text").css("visibility", "visible")
+                $("#edit-error-text").html(res.message)
             }
 
         },
