@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mkav Tea</title>
+    <title>Mkav Tea | Trang Chủ</title>
     <link rel="shortcut icon" href="images/mkav-tea/logo_transparent.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
         integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
@@ -74,27 +74,6 @@
                                         </ul>
                                     </div>
                                 </li>
-
-                                <script>
-                                    $(".dropdown").click(function (e) {
-                                        event.stopPropagation()
-                                        let parent = e.target
-                                        if (e.target.children.length === 0) {
-                                            parent = e.target.parentNode
-                                        }
-                                        if (!parent.classList.contains("active"))
-                                            parent.classList.add("active")
-                                        else 
-                                        parent.classList.remove("active")
-
-                                        console.log(parent.children[1])
-                                    })
-
-                                    $(window).click(function () {
-                                        if ($(".dropdown").hasClass("active"))
-                                            $(".dropdown").removeClass("active")
-                                    });
-                                </script>
 
                                 <% } else if (user.position==6) {%>
                                     <li class="btn-group user-group">
@@ -410,5 +389,7 @@
     </div>
 
 </body>
+
+<script src="scripts/handleDropdown.js"></script>
 
 </html>

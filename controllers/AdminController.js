@@ -9,12 +9,12 @@ class AdminController {
     async admin(req, res) {
         let userObj
 
-        await User.find({ position: { $ne: 0 } })
+        await User.find({})//({ position: { $ne: 0 } })
             .then(users => {
                 userObj = users
             })
             .catch(err => {
-                console.log(err)
+                return res.render("error")
             })
 
         await User.findOne({ email: req.session.email })
@@ -25,7 +25,7 @@ class AdminController {
                 })
             })
             .catch(err => {
-                console.log(err)
+                return res.render("error")
             })
     }
 

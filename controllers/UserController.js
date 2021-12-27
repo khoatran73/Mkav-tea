@@ -116,44 +116,53 @@ class UserController {
     async editUser(req, res) {
         const _id = req.query._id
         const { name, email, position, gender } = req.body
+
         let image = ""
         let user
 
-        if (!name || !email || !position || !gender) {
-            if (req.file)
-                unlink(path.join(__dirname, '../public/images/users/' + req.file.filename))
-                
-            return res.json({ code: 1, message: "Không được để trống bất kỳ trường nào" })
-        }
-
         await User.findOne({ _id: _id })
-            .then(u => {
-                user = u
-            })
-
-        if (req.file) {
-            image = req.file.path.split("\\").slice(1).join("/")
-            unlink(path.join(__dirname, '../public/' + user.image))
-        }
-
-        await User.updateOne({ _id: _id }, {
-            name: name,
-            email: email,
-            gender: gender,
-            position: position,
-            image: image || user.image
-        })
-            .then(async () => {
-                await User.findOne({ _id: _id })
-                    .then(user => {
-                        res.json({
-                            code: 0, message: "success", user: user
-                        })
+            .then(async u => {
+                if (u.position === 0) {
+                    if (req.file)
+                        unlink(path.join(__dirname, '../public/images/users/' + req.file.filename))
+                    return res.json({
+                        code: 1,
+                        message: "Không được phép sửa thông tin khách hàng"
                     })
+                } else {
+                    if (!name || !email || !position || !gender) {
+                        if (req.file)
+                            unlink(path.join(__dirname, '../public/images/users/' + req.file.filename))
 
-            })
-            .catch(err => {
-                console.log(err)
+                        return res.json({ code: 1, message: "Không được để trống bất kỳ trường nào" })
+                    }
+
+                    if (req.file) {
+                        image = req.file.path.split("\\").slice(1).join("/")
+                        unlink(path.join(__dirname, '../public/' + user.image))
+                    }
+
+                    await User.updateOne({ _id: _id }, {
+                        name: name,
+                        email: email,
+                        gender: gender,
+                        position: position,
+                        image: image || user.image
+                    })
+                        .then(async () => {
+                            await User.findOne({ _id: _id })
+                                .then(user => {
+                                    res.json({
+                                        code: 0, message: "success", user: user
+                                    })
+                                })
+
+                        })
+                        .catch(err => {
+                            res.render("error")
+                        })
+                }
+                user = u
             })
     }
 

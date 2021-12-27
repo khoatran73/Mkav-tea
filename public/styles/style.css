@@ -134,20 +134,21 @@
     transition-delay: 0.1s;
     overflow: hidden;
     cursor: auto;
+    z-index: 99;
 }
 
 .dropdown .dropdown-menu li {
     display: flex;
     align-items: center;
     padding: 12px 18px;
-    transition: 0.3s;
+    transition: ease-in-out 0.2s;
     transition-delay: 0.05s;
     cursor: pointer;
     border-radius: 3px;
 }
 
 .dropdown .dropdown-menu li:hover {
-    background-color: rgb(238, 235, 235);
+    background-color: #F6F6F6;
 }
 
 .dropdown .dropdown-menu li a {
@@ -666,6 +667,7 @@ footer .container {
 
 .order-header-logo img {
     width: 70px;
+    /* cursor: pointer; */
 }
 
 .order-header-logo {

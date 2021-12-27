@@ -49,7 +49,7 @@ let locationArray = [
                 time: "Thứ Hai - Chủ Nhật: 09h00 - 22h00"
             }
         ]
-    }, 
+    },
     {
         id: 2,
         name: "Phú Yên",
@@ -192,7 +192,7 @@ function loadListLocation(locationId) {
 }
 
 function displayStoreListHeader(locations) {
-    let child = 
+    let child =
         `
             <h2>${locations.name}</h2>
             <ul id="list-location">
@@ -221,7 +221,7 @@ function displayListStore(location, index, map, infoWindow) {
 }
 
 function displayMarker(location, map, infoWindow) {
-        map.setCenter({ lat: location.lat, lng: location.lng }, 15)
-        infoWindow.setContent(infoWindowContent[location.idStore])
-        infoWindow.open(map, markerArr[location.idStore])
+    map.setCenter({ lat: location.lat, lng: location.lng }, 15)
+    infoWindow.setContent(infoWindowContent[location.idStore])
+    infoWindow.open(map, markerArr[location.idStore])
 }

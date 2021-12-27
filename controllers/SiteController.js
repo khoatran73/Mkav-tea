@@ -3,23 +3,36 @@ const User = require("../models/User")
 class SiteController {
     async index(req, res) {
         const email = req.session.email || ""
-        await User.find({ email: email })
+        await User.findOne({ email: email })
             .then(user => {
-                if (user.length) {
+                if (user) {
                     return res.render('index', {
-                        user: user[0]
+                        user: user
                     })
                 } else {
                     return res.render('index')
                 }
             })
             .catch(err => {
-                console.log(err)
+                res.render("error")
             })
     }
 
-    store(req, res) {
-        res.render('store')
+    async store(req, res) {
+        const email = req.session.email || ""
+        await User.findOne({ email: email })
+            .then(user => {
+                if (user) {
+                    return res.render('store', {
+                        user: user
+                    })
+                } else {
+                    return res.render('store')
+                }
+            })
+            .catch(err => {
+                res.render("error")
+            })
     }
 
     async profile(req, res) {

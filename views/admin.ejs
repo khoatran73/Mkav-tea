@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mkav Tea</title>
+    <title>Mkav Tea | Admin</title>
     <link rel="shortcut icon" href="../images/mkav-tea/logo_transparent.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,9 +26,9 @@
     <div class="wrapper">
         <header class="order-header">
             <div class="container">
-                <a href="/" class="order-header-logo">
-                    <img src="../images/mkav-tea/logo_transparent.png" alt="">
-                </a>
+                <div class="order-header-logo">
+                    <a href="/"><img src="images/mkav-tea/logo_transparent.png" alt=""></a>
+                </div>
                 <li class="btn-group user-group">
                     <a href="/admin/?tab=employee-manager"><img src="../<%= admin.image %>" alt=""></a>
                 </li>
@@ -93,9 +93,9 @@
                                         </td>
                                         <td class="text-center">
                                             <button type="button" class="edit-employee btn btn-sm btn-outline-primary"
-                                                data-id="<%= user._id %>">Sửa</button>
+                                                data-id="<%= user._id %>" <% if (user.position === 0) { %> disabled style="cursor: not-allowed"<%} %>>Sửa</button>
                                             <button type="button" class="delete-employee btn btn-sm btn-outline-danger"
-                                                data-id="<%= user._id %>">Xóa</button>
+                                                data-id="<%= user._id %>" <% if (user.position === 0) { %> disabled style="cursor: not-allowed"<%} %>>Xóa</button>
                                         </td>
                                     </tr>
                                     <% }) %>
