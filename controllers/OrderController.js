@@ -1,21 +1,28 @@
 const User = require("../models/User")
+const Product = require("../models/Product")
 
 class OrderController {
     async order(req, res) {
         const email = req.session.email || ""
-        await User.find({ email: email })
-            .then(user => {
-                if (user.length) {
-                    return res.render('order', {
-                        user: user[0]
-                    })
-                } else {
-                    return res.render('order')
+        let user
+
+        await User.findOne({ email: email })
+            .then(u => {
+                if (u) {
+                    user = u
                 }
             })
             .catch(err => {
                 console.log(err)
             })
+
+        await Product.find({})
+        .then(products => {
+            res.render("order", {
+                user: user || null,
+                products: products
+            })
+        })
     }
 }
 

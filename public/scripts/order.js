@@ -51,7 +51,10 @@ $(document).ready(function () {
 
     // open and close Popup
 
-    $("#close-popup").click(() => displayPopup("none", {}))
+    $("#close-popup").click(() => {
+        displayPopup("none", {})
+        resetPopup()
+    })
 
     $(".open-popup").click((e) => {
         const productParent = e.target.parentNode.parentNode
@@ -69,7 +72,10 @@ $(document).ready(function () {
     })
 
 
-    $(".overlay").click(() => displayPopup("none"))
+    $(".overlay").click(() => {
+        displayPopup("none")
+        resetPopup()
+    })
 
     function updateProductInfo() {
         const size = "Size " + $("input[name=size]:checked").val()
@@ -166,17 +172,16 @@ $(document).ready(function () {
         displayPopup("none")
         addCartOrderItem()
         resetPopup()
-
-        function resetPopup() {
-            $("#product-amount").html("1")
-
-            $.each($("input[name='topping']:checked"), function () {
-                console.log($(this))
-                $(this).prop('checked', false)
-            })
-        }
-
     })
+
+    function resetPopup() {
+        $("#product-amount").html("1")
+
+        $.each($("input[name='topping']:checked"), function () {
+            console.log($(this))
+            $(this).prop('checked', false)
+        })
+    }
 
     function addCartOrderItem() {
         const cartOrder = $(".cart-order")

@@ -35,7 +35,7 @@
                     <input type="text" placeholder="Search">
                 </div>
                 <% if (!locals.user) { %>
-                    <li class="btn-group">
+                    <li class="btn-group" style="width: 30%; justify-content: right">
                         <button class="btn" id="login-btn">Đăng Nhập</button>
                         <button class="btn btn-transparent" id="register-btn">Đăng Ký</button>
                     </li>
@@ -80,52 +80,123 @@
                 <div class="order-sidebar order-sidebar-left">
                     <h3>Danh Mục</h3>
                     <ul id="order">
-                        <li id="order-1">Món nổi bật<span>8</span></li>
-                        <li id="order-2">Trà Sữa<span>8</span></li>
-                        <li id="order-3">Fresh Fruit Tea<span>81</span></li>
-                        <li id="order-4">Macchiato<span>8</span></li>
-                        <li id="order-5">Sữa Chua Dẻo<span>8</span></li>
+                        <li id="order-1">Trà Sữa<span>8</span></li>
+                        <li id="order-2">Fresh Fruit Tea<span>81</span></li>
+                        <li id="order-3">Macchiato<span>8</span></li>
+                        <li id="order-4">Sữa Chua Dẻo<span>8</span></li>
                     </ul>
                 </div>
                 <div class="order-center" id="order-center">
                     <div class="category">
-                        <h3>Món nổi bật</h3>
+                        <h3>Trà Sữa</h3>
                         <i class="fas fa-chevron-down fa-chevron" id="chevron-1"></i>
                         <div class="list-product" id="list-product-1">
-                            <div class="product">
-                                <div>
-                                    <img src="images/product/tchk.png" alt="">
-                                </div>
-                                <div class="product-bottom">
-                                    <h5>
-                                        Sữa Chua Dâu Tằm Hoàng Kim
-                                    </h5>
-                                    <div data-price="12">
-                                        12.000đ <span data-price="22">22.000đ</span>
+                            <% products.forEach(function(product) { %>
+                                <% if (product.type==1) { %>
+                                    <div class="product">
+                                        <div>
+                                            <img src="<%= product.image %>" alt="">
+                                        </div>
+                                        <div class="product-bottom">
+                                            <h5>
+                                                <%= product.name %>
+                                            </h5>
+                                            <div data-price="<%= product.price %>">
+                                                <%= product.price %>.000đ<span data-price="<%= product.oldPrice %>">
+                                                        <%= product.oldPrice %>.000đ
+                                                    </span>
+                                            </div>
+                                            <i class="fas fa-plus-circle open-popup"></i>
+                                        </div>
                                     </div>
-                                    <i class="fas fa-plus-circle open-popup"></i>
-                                </div>
-                            </div>
+
+                                    <% } %>
+
+                                        <% }) %>
                         </div>
                     </div>
                     <div class="category">
-                        <h3>Trà Sữa</h3>
+                        <h3>Fresh Fruit Tea</h3>
                         <i class="fas fa-chevron-down fa-chevron" id="chevron-2"></i>
                         <div class="list-product" id="list-product-2">
-                            <div class="product">
-                                <div>
-                                    <img src="images/product/tchk.png" alt="">
-                                </div>
-                                <div class="product-bottom">
-                                    <h5>
-                                        Sữa Chua Dâu Tằm Hoàng Kim
-                                    </h5>
-                                    <div data-price="12">
-                                        12.000đ <span data-price="22">22.000đ</span>
+                            <% products.forEach(function(product) { %>
+                                <% if (product.type==2) { %>
+                                    <div class="product">
+                                        <div>
+                                            <img src="<%= product.image %>" alt="">
+                                        </div>
+                                        <div class="product-bottom">
+                                            <h5>
+                                                <%= product.name %>
+                                            </h5>
+                                            <div data-price="<%= product.price %>">
+                                                <%= product.price %>.000đ<span data-price="<%= product.oldPrice %>">
+                                                        <%= product.oldPrice %>.000đ
+                                                    </span>
+                                            </div>
+                                            <i class="fas fa-plus-circle open-popup"></i>
+                                        </div>
                                     </div>
-                                    <i class="fas fa-plus-circle open-popup"></i>
-                                </div>
-                            </div>
+
+                                    <% } %>
+
+                                        <% }) %>
+                        </div>
+                    </div>
+                    <div class="category">
+                        <h3>Macchiato</h3>
+                        <i class="fas fa-chevron-down fa-chevron" id="chevron-3"></i>
+                        <div class="list-product" id="list-product-3">
+                            <% products.forEach(function(product) { %>
+                                <% if (product.type==3) { %>
+                                    <div class="product">
+                                        <div>
+                                            <img src="<%= product.image %>" alt="">
+                                        </div>
+                                        <div class="product-bottom">
+                                            <h5>
+                                                <%= product.name %>
+                                            </h5>
+                                            <div data-price="<%= product.price %>">
+                                                <%= product.price %>.000đ<span data-price="<%= product.oldPrice %>">
+                                                        <%= product.oldPrice %>.000đ
+                                                    </span>
+                                            </div>
+                                            <i class="fas fa-plus-circle open-popup"></i>
+                                        </div>
+                                    </div>
+
+                                    <% } %>
+
+                                        <% }) %>
+                        </div>
+                    </div>
+                    <div class="category">
+                        <h3>Sữa Chua Dẻo</h3>
+                        <i class="fas fa-chevron-down fa-chevron" id="chevron-4"></i>
+                        <div class="list-product" id="list-product-4">
+                            <% products.forEach(function(product) { %>
+                                <% if (product.type==4) { %>
+                                    <div class="product">
+                                        <div>
+                                            <img src="<%= product.image %>" alt="">
+                                        </div>
+                                        <div class="product-bottom">
+                                            <h5>
+                                                <%= product.name %>
+                                            </h5>
+                                            <div data-price="<%= product.price %>">
+                                                <%= product.price %>.000đ<span data-price="<%= product.oldPrice %>">
+                                                        <%= product.oldPrice %>.000đ
+                                                    </span>
+                                            </div>
+                                            <i class="fas fa-plus-circle open-popup"></i>
+                                        </div>
+                                    </div>
+
+                                    <% } %>
+
+                                        <% }) %>
                         </div>
                     </div>
                 </div>
@@ -265,6 +336,7 @@
     </div>
 </body>
 
+<script src="scripts/account-btn.js"></script>
 <script src="scripts/handleDropdown.js"></script>
 
 </html>

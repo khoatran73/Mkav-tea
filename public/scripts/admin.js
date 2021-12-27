@@ -155,7 +155,6 @@ function clickEditEmployeeButton() {
                 updateEditModal(res.user)
             },
             error: function (err) {
-                console.log(err)
             }
         })
 

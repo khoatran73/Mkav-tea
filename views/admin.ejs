@@ -21,6 +21,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </head>
+<style>
+    .profile-main .container {
+        max-width: 1200px;
+    }
+</style>
 
 <body>
     <div class="wrapper">
@@ -61,7 +66,7 @@
                             <button type="button" class="btn btn-success" data-target="#add-modal"
                                 data-toggle="modal">Thêm nhân viên</button>
                         </div>
-                        <table class="table table-bordered">
+                        <table class="table table-bordered" >
                             <thead>
                                 <tr>
                                     <th scope="col" class="text-center">#</th>
@@ -93,9 +98,11 @@
                                         </td>
                                         <td class="text-center">
                                             <button type="button" class="edit-employee btn btn-sm btn-outline-primary"
-                                                data-id="<%= user._id %>" <% if (user.position === 0) { %> disabled style="cursor: not-allowed"<%} %>>Sửa</button>
+                                                data-id="<%= user._id %>" <% if (user.position===0) { %> disabled
+                                                style="cursor: not-allowed"<%} %>>Sửa</button>
                                             <button type="button" class="delete-employee btn btn-sm btn-outline-danger"
-                                                data-id="<%= user._id %>" <% if (user.position === 0) { %> disabled style="cursor: not-allowed"<%} %>>Xóa</button>
+                                                data-id="<%= user._id %>" <% if (user.position===0) { %> disabled
+                                                style="cursor: not-allowed"<%} %>>Xóa</button>
                                         </td>
                                     </tr>
                                     <% }) %>
