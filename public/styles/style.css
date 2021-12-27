@@ -763,8 +763,8 @@ footer .container {
     cursor: pointer;
 }
 
-.none-border {
-    border-bottom: none !important;
+#order li:last-child {
+    border: none !important;
 }
 
 .order-center {
@@ -1227,7 +1227,7 @@ footer .container {
 }
 
 .profile-main__left--item.active {
-    border-left: 2px solid var(--primary);
+    border-left: 2px solid #AC773C;
 }
 
 .profile-main__left--item i {

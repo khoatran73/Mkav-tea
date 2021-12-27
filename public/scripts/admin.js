@@ -103,13 +103,9 @@ function deleteEmployee(e) {
                         parent.remove()
                         updateIndex()
                     })
-            } else {
-                $("#error-text").css("visibility", "visible")
-                $("#error-text").html(res.message)
             }
         },
         error: function (err) {
-            console.log(err)
         }
     })
 

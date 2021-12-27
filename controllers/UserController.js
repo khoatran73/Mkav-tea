@@ -137,6 +137,8 @@ class UserController {
                         return res.json({ code: 1, message: "Không được để trống bất kỳ trường nào" })
                     }
 
+                    user = u
+
                     if (req.file) {
                         image = req.file.path.split("\\").slice(1).join("/")
                         unlink(path.join(__dirname, '../public/' + user.image))
@@ -162,7 +164,6 @@ class UserController {
                             res.render("error")
                         })
                 }
-                user = u
             })
     }
 

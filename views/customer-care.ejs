@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mkav Tea | Product Manager</title>
+    <link rel="shortcut icon" href="../images/mkav-tea/logo_transparent.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Baloo+2:wght@600;700&Barlow:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../styles/admin.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+<style>
+    .profile-main .container {
+        max-width: 1360px;
+    }
+</style>
+
+<body>
+    <div class="wrapper">
+        <header class="order-header">
+            <div class="container">
+                <div class="order-header-logo">
+                    <a href="/"><img src="../images/mkav-tea/logo_transparent.png" alt=""></a>
+                </div>
+                <li class="btn-group user-group">
+                    <a href="/customer-care/?tab=product-manager"><img src="../<%= user.image %>" alt=""></a>
+                </li>
+            </div>
+        </header>
+        <section class="profile-main">
+            <div class="container">
+                <div class="profile-main__left" style="width: 20%;">
+                    <div class="profile-main__left--item active">
+                        <i class="fas fa-user-alt"></i>
+                        Quản lí sản phẩm
+                    </div>
+                    <div class="profile-main__left--item">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <div id="logout">Đăng xuất</div>
+                    </div>
+                    <script>
+                        $("#logout").click(function () {
+                            window.location.href = "/user/logout"
+                        })
+                    </script>
+                </div>
+                <div class="profile-main__right" style="width: 80%;">
+                    <div class="tab" id="admin">
+                        <div class="btn-add">
+                            <button type="button" class="btn btn-success" data-target="#add-modal"
+                                data-toggle="modal">Thêm sản phẩm</button>
+                        </div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="text-center">#</th>
+                                    <th scope="col" class="text-center">Tên sản phẩm</th>
+                                    <th scope="col" class="text-center">Ảnh</th>
+                                    <th scope="col" class="text-center">Giá mới</th>
+                                    <th scope="col" class="text-center">Giá cũ</th>
+                                    <th scope="col" class="text-center">Loại</th>
+                                    <th scope="col" class="text-center">Người thêm</th>
+                                    <th scope="col" class="text-center">Thời gian thêm</th>
+                                    <th scope="col" class="text-center">Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-body">
+                                <% products.forEach(function(product, index) { %>
+                                    <tr>
+                                        <th scope="row" class="index text-center">
+                                            <%= (index + 1) %>
+                                        </th>
+                                        <td>
+                                            <%= product.name %>
+                                        </td>
+                                        <td class="text-center"><img src="../<%= product.image %>" alt=""></td>
+                                        <td>
+                                            <%= product.price %>.000đ
+                                        </td>
+                                        <td>
+                                            <%= product.oldPrice %>.000đ
+                                        </td>
+                                        
+                                        <td class="type">
+                                            <%= product.type %>
+                                        </td>
+                                        <td>
+                                            <%= product.customerCare %>
+                                        </td>
+                                        <td>
+                                            <%= product.createdAt %>
+                                        </td>
+                                        <td class="text-center">
+                                            <button type="button" class="edit-product btn btn-sm btn-outline-primary"
+                                                data-id="<%= product.id %>">Sửa</button>
+                                            <button type="button" class="delete-product btn btn-sm btn-outline-danger"
+                                                data-id="<%= product.id %>">Xóa</button>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+
+    <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Sửa thông tin sản phẩm</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" enctype="multipart/form-data" id="edit-form">
+                        <div class="form-group">
+                            <label for="edit-name">Tên</label>
+                            <input type="text" class="form-control" id="edit-name" name="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-image">Ảnh sản phẩm</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="edit-image" name="image">
+                                <label class="custom-file-label" for="edit-image">Chọn ảnh...</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-type">Loại</label>
+                            <select class="form-control" id="edit-type" name="type">
+                                <option value="1">Trà sữa</option>
+                                <option value="2">Fresh Fruit Tea</option>
+                                <option value="3">Macchiato</option>
+                                <option value="4">Sữa Chua Dẻo</option>
+                                <option value="5">Topping</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-price">Giá</label>
+                            <input type="number" class="form-control" name="price" id="edit-price"
+                                placeholder="Nhập giá...">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-old-price">Giá cũ</label>
+                            <input type="number" class="form-control" name="oldPrice" id="edit-old-price"
+                                placeholder="Nhập giá cũ...">
+                        </div>
+                        <div class="alert alert-danger" id="edit-error-text" role="alert" style="visibility: hidden">
+                            error text
+                        </div>
+                        <div class="text-right">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <button type="submit" id="edit-save-btn" class="btn btn-success">Lưu</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="add-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thêm sản phẩm</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/customer-care/add-product" method="POST" enctype="multipart/form-data" id="add-form">
+                        <div class="form-group">
+                            <label for="name">Tên</label>
+                            <input type="text" name="name" class="form-control" id="name" placeholder="Nhập tên...">
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Ảnh sản phẩm</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="image" name="image">
+                                <label class="custom-file-label" for="image">Chọn ảnh...</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="type">Loại</label>
+                            <select class="form-control" id="type" name="type">
+                                <option value="1">Trà sữa</option>
+                                <option value="2">Fresh Fruit Tea</option>
+                                <option value="3">Macchiato</option>
+                                <option value="4">Sữa Chua Dẻo</option>
+                                <option value="5">Topping</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Giá</label>
+                            <input type="number" class="form-control" name="price" id="price"
+                                placeholder="Nhập giá...">
+                        </div>
+                        <div class="form-group">
+                            <label for="old-price">Giá cũ</label>
+                            <input type="number" class="form-control" name="oldPrice" id="old-price"
+                                placeholder="Nhập giá cũ...">
+                        </div>
+                        
+                        <div class="alert alert-danger" id="error-text" role="alert" style="visibility: hidden">
+                            Error Message
+                        </div>
+                        <div class="text-right">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-success">Lưu</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../scripts/customer-care.js"></script>
+
+</html>
