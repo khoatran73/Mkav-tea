@@ -41,3 +41,25 @@ $("input[name=name]").keyup(function () {
         $(this).parent().removeClass("error-input")
     }
 })
+
+$("#user-image").change(function () {
+    const data = new FormData($("#image-form")[0])
+
+    $.ajax({
+        type: "PUT",
+        url: "http://localhost:3000/user/edit-user-image/",
+        data: data,
+        processData: false,
+        contentType: false,
+        success: function (res) {
+            console.log(res)
+            if (res.code === 0) {
+                location.reload()
+            }
+        },
+        error: function (err) {
+
+        }
+    })
+})
+

@@ -61,9 +61,11 @@
                         <div class="profile-content">
                             <div class="avatar">
                                 <img src="../<%= user.image %>" alt="">
-                                <label for="user-image"><i class="fas fa-camera"></i></label>
-                                <input type="file" name="user-image" id="user-image" style="display: none;"
-                                    accept="image/png, image/jpeg">
+                                <form id="image-form" action="" enctype="multipart/form-data" method="POST">
+                                    <label for="user-image"><i class="fas fa-camera"></i></label>
+                                    <input type="file" name="image" id="user-image" style="display: none;"
+                                        accept="image/png, image/jpeg">
+                                </form>
                             </div>
                             <div class="profile-form">
                                 <div class="profile-form-item">

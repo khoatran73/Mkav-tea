@@ -194,6 +194,31 @@ class UserController {
 
     }
 
+    async editUserImage(req, res) {
+        if (req.file) {
+            if (!req.file.mimetype.match(/image.*/)) {
+                error = "Chỉ hổ trợ định dạng hình ảnh"
+            } else if (req.file.size > (1024 * 1024 * 20)) {
+                error = "Size ảnh không được quá 20MB"
+            } else {
+                await User.findOne({ email: req.session.email })
+                    .then(user => {
+                        unlink(path.join(__dirname, '../public/' + user.image))
+                    })
+
+                await User.updateOne({ email: req.session.email }, {
+                    image: req.file.path.split("\\").slice(1).join("/")
+                })
+                    .then(() => {
+                        res.json({ code: 0, message: "success" })
+                    })
+                    .catch(err => {
+                        res.json({ code: 1, message: err.message })
+                    })
+            }
+        }
+    }
+
     logout(req, res) {
         delete req.session.email
         res.redirect("/")

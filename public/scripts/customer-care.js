@@ -124,7 +124,7 @@ function deleteProduct(e) {
             }
         },
         error: function (err) {
-            
+
         }
     })
 
