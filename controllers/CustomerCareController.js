@@ -46,7 +46,8 @@ class AdminController {
                 type: type,
                 price: price,
                 oldPrice: oldPrice,
-                customerCare: req.session.email
+                customerCare: req.session.email,
+                createdAt: (new Date().getHours()) + ":" + (new Date().getMinutes()) + " ngày " + (new Date().getDate()) + "/" + (new Date().getMonth()) + "/" + (new Date().getFullYear())
             }
 
             let product = new Product(productJson)

@@ -1,79 +1,96 @@
 $(document).ready(function () {
-    const orderCenter = $("#order-center")
-    let length = orderCenter.children().length
+    {
+        const orderCenter = $("#order-center")
+        let length = orderCenter.children().length
 
-    for (let i = 1; i <= length; i++) {
-        const chevron = $("#chevron-" + i)
-        const category = $("#list-product-" + i)
-        chevron.click(function () {
-            if (chevron.attr("class").includes("fa-chevron-down")) {
-                setTimeout(() => {
-                    chevron.removeClass("fa-chevron-down")
-                    chevron.addClass("fa-chevron-up")
-                }, 100)
-            } else {
-                setTimeout(() => {
-                    chevron.removeClass("fa-chevron-up")
-                    chevron.addClass("fa-chevron-down")
-                }, 50)
-            }
-            category.slideToggle()
-        })
+        for (let i = 1; i <= length; i++) {
+            const chevron = $("#chevron-" + i)
+            const category = $("#list-product-" + i)
+            chevron.click(function () {
+                if (chevron.attr("class").includes("fa-chevron-down")) {
+                    setTimeout(() => {
+                        chevron.removeClass("fa-chevron-down")
+                        chevron.addClass("fa-chevron-up")
+                    }, 100)
+                } else {
+                    setTimeout(() => {
+                        chevron.removeClass("fa-chevron-up")
+                        chevron.addClass("fa-chevron-down")
+                    }, 50)
+                }
+                category.slideToggle()
+            })
 
-        const order = $("#order-" + i)
+            const order = $("#order-" + i)
 
-        order.click(function () {
-            $('html,body').animate({
-                scrollTop: category.offset().top
-            }, 'slow')
-        })
+            order.click(function () {
+                $('html,body').animate({
+                    scrollTop: category.offset().top
+                }, 'slow')
+            })
+        }
     }
+
 
     // Handle Scroll Top Icon
-    const toTop = document.querySelector("#scroll-top")
+    {
+        const toTop = document.querySelector("#scroll-top")
 
-    if (window.scrollY === 0) {
-        toTop.style.display = "none"
-    }
-
-    document.addEventListener("scroll", function () {
         if (window.scrollY === 0) {
             toTop.style.display = "none"
-        } else {
-            toTop.style.display = ""
         }
 
-        toTop.addEventListener("click", function () {
-            window.scrollTo({ top: 0, behavior: 'smooth' })
-        })
-    })
+        document.addEventListener("scroll", function () {
+            if (window.scrollY === 0) {
+                toTop.style.display = "none"
+            } else {
+                toTop.style.display = ""
+            }
 
+            toTop.addEventListener("click", function () {
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+            })
+        })
+    }
 
     // open and close Popup
 
     $("#close-popup").click(() => {
-        displayPopup("none", {})
+        $("#popup").css("display", "none")
         resetPopup()
     })
 
-    $(".open-popup").click((e) => {
-        const productParent = e.target.parentNode.parentNode
-        const src = productParent.children[0].children[0].src
-        const productName = productParent.children[1].children[0].innerHTML
-        const productPrice = productParent.children[1].children[1].dataset.price
-        const oldPrice = productParent.children[1].children[1].children[0].dataset.price
+    $(".open-popup").click(function (e) {
+        const id = e.target.dataset.id
 
-        const product = {
-            src, productName, productPrice, oldPrice
-        }
-
-
-        displayPopup("flex", product)
+        $.ajax({
+            url: "http://localhost:3000/payment/" + id,
+            type: "GET",
+            success: function (res) {
+                if (res.code === 0) {
+                    displayPopup("flex", res.product, res.toppings)
+                } else if (res.code === 2) {
+                    swal({
+                        title: "Error",
+                        text: res.message,
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: false,
+                    })
+                        .then((willChangeDir) => {
+                            if (willChangeDir) {
+                                window.location.href = "/user/login"
+                            }
+                        })
+                }
+            },
+            error: function (err) {
+            }
+        })
     })
 
-
     $(".overlay").click(() => {
-        displayPopup("none")
+        $("#popup").css("display", "none")
         resetPopup()
     })
 
@@ -96,42 +113,56 @@ $(document).ready(function () {
         $("#product-info").html(`${size}${sugar}${ice}${toppings}`)
     }
 
-    function displayPopup(display, product) {
+    function displayPopup(display, product, toppings) {
         $("#popup").css("display", display)
         if (product)
-            updatePopup(product)
+            updatePopup(product, toppings)
+
         updateProductInfo()
+        resetPopup()
     }
 
-    function updatePopup(product) {
-        const { src, productName, productPrice, oldPrice } = product
-        $("#product-image").attr("src", src)
-        $("#product-name").html(productName)
-        $("#product-price").html(productPrice + ".000đ")
+    function updatePopup(product, toppings) {
+        const { id, image, name, price, oldPrice } = product
+        $("#product-image").attr("src", image)
+        $("#product-name").html(name)
+        $("#product-price").html(price + ".000đ")
         $("#old-price").html(oldPrice + ".000đ")
-        $("#product-money").html(productPrice + ".000đ")
-        $("#product-money").data("price", productPrice)
+        $("#product-money").html(price + ".000đ")
+        $("#product-money").data("price", price)
+        $("#product-money").data("id", id)
     }
+
+    // Click Money button on Popup
+    const cartArray = []
+
+    $("#product-money").click(function () {
+        const product_id = $(this).data("id")
+        addCartOrderItem(product_id)
+
+        $("#popup").css("display", "none")
+    })
 
     // change product info
-    $("input[name=size]").change(() => {
-        updateProductInfo()
-    })
+    {
+        $("input[name=size]").change(() => {
+            updateProductInfo()
+        })
 
-    $("input[name=ice]").change(() => {
-        updateProductInfo()
-    })
+        $("input[name=ice]").change(() => {
+            updateProductInfo()
+        })
 
-    $("input[name=sugar]").change(() => {
-        updateProductInfo()
-    })
+        $("input[name=sugar]").change(() => {
+            updateProductInfo()
+        })
 
-    $("input[name=topping]").change(() => {
-        updateProductInfo()
+        $("input[name=topping]").change(() => {
+            updateProductInfo()
 
-        updatePopupMoney(parseInt($("#product-amount").html()))
-    })
-
+            updatePopupMoney(parseInt($("#product-amount").html()))
+        })
+    }
 
     function updatePopupMoney(amount) {
         let price = parseInt($("#product-money").data("price"))
@@ -142,6 +173,7 @@ $(document).ready(function () {
 
         $("#product-money").html((price * amount).toString() + ".000đ")
     }
+
     // Click + button on Popup 
     $("#add-product").click(() => {
         const productAmount = $("#product-amount")
@@ -166,27 +198,18 @@ $(document).ready(function () {
         updatePopupMoney(amount)
     })
 
-
-    // Click Money button on Popup
-    $("#product-money").click(() => {
-        displayPopup("none")
-        addCartOrderItem()
-        resetPopup()
-    })
-
     function resetPopup() {
         $("#product-amount").html("1")
 
         $.each($("input[name='topping']:checked"), function () {
-            console.log($(this))
             $(this).prop('checked', false)
         })
     }
 
-    function addCartOrderItem() {
+    function addCartOrderItem(product_id) {
         const cartOrder = $(".cart-order")
         const productName = $("#product-name").html()
-        const productPrice = $("#product-price").html()
+        const productPrice = $("#product-money").data("price")
         const productAmount = $("#product-amount").html()
         let size = $('input[name="size"]:checked').val()
         let sugar = $('input[name="sugar"]:checked').val()
@@ -206,6 +229,47 @@ $(document).ready(function () {
 
         const totalPriceItem = price * parseInt(productAmount)
 
+        let toppingArr = []
+
+        $.each($("input[name='topping']:checked"), function () {
+            const toppingObj = JSON.stringify({
+                id: $(this).attr("id"),
+                price: parseInt($(this).data("price"))
+            })
+
+            toppingArr.push(toppingObj)
+        })
+
+        const cartObj = {
+            product_id: product_id,
+            amount: parseInt($("#product-amount").html()),
+            price: price,
+            info: {
+                size: $('input[name="size"]:checked').val(),
+                ice: $('input[name="ice"]:checked').val(),
+                sugar: $('input[name="sugar"]:checked').val(),
+            },
+            toppings: toppingArr
+        }
+
+        // cartArray.push(cartObj)
+
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:3000/payment/add-cart",
+            // data: JSON.stringify(cartArray),
+            data: JSON.stringify(cartObj),
+            processData: false,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (res) {
+
+            },
+            error: function (err) {
+
+            }
+        })
+
         let cartOrderItem = `
             <div class="cart-order-item">
                 <div class="cart-order-item-left">
@@ -215,7 +279,7 @@ $(document).ready(function () {
                 </div>
                 <div class="cart-order-item-right">
                     <div class="amount">${productAmount}</div>
-                    <div class="remove-cart">Xóa</div>
+                    <div class="remove-cart" data-id=${product_id}">Xóa</div>
                 </div>
             </div>`
 
@@ -223,9 +287,47 @@ $(document).ready(function () {
 
         updateCartTotalPrice()
 
+        handleDeleteCart()
+    }
+
+    handleDeleteCart()
+
+    function handleDeleteCart() {
+        // click "xóa"
         $(".remove-cart").click(function () {
-            this.parentNode.parentNode.remove()
-            updateCartTotalPrice()
+            const id = this.dataset.id
+            const cartOrderItem = this.parentNode.parentNode
+
+            $.ajax({
+                type: "DELETE",
+                url: "http://localhost:3000/payment/delete-cart/" + id,
+                success: function (res) {
+                    if (res.code === 0) {
+                        cartOrderItem.remove()
+                        updateCartTotalPrice()
+                    }
+                },
+                error: function (err) {
+
+                }
+            })
+        })
+
+        // click "xóa tất cả"
+        $("#remove-all-cart").click(function () {
+            $.ajax({
+                type: "DELETE",
+                url: "http://localhost:3000/payment/delete-cart/",
+                success: function (res) {
+                    if (res.code === 0) {
+                        $(".cart-order").empty()
+                        updateCartTotalPrice()
+                    }
+                },
+                error: function (err) {
+
+                }
+            })
         })
     }
 
@@ -249,10 +351,6 @@ $(document).ready(function () {
         }
     }
 
-    // click "xóa tất cả"
-    $("#remove-all-cart").click(function () {
-        $(".cart-order").empty()
-        updateCartTotalPrice()
-    })
+
 
 })

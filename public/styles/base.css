@@ -8,7 +8,7 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box !important;
 }
 
 img {
@@ -16,7 +16,7 @@ img {
 }
 
 h1, h2, h3, h4, h5, h6, p {
-    pointer-events: none;
+    pointer-events: none !important;
 }
 
 a {
@@ -25,12 +25,20 @@ a {
     color: var(--text);
 }
 
+a:hover {
+    text-decoration: none !important;
+}
+
 ul, ol, li {
     list-style: none;
 }
 
 html {
     font-size: 62.5%;
+}
+
+body {
+    user-select: none !important;
 }
 
 body, button {

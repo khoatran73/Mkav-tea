@@ -13,15 +13,97 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Baloo+2:wght@600;700&Barlow:wght@400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&Montserrat:wght@400;500;600;700&Barlow:wght@400;500;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
+    <script src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="scripts/order.js"></script>
 </head>
+
+<style>
+    #edit-modal {
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .form {
+        padding: 24px 32px;
+        background: #fff;
+        box-shadow: 0 0 4px 6px rgba(0, 0, 0, 0.05);
+        width: 450px;
+        border-radius: 16px;
+    }
+
+    .form .form-title {
+        padding-bottom: 10px;
+        border-bottom: 1px solid #e6e6e6;
+        font-size: 2.5rem;
+        font-weight: 600;
+    }
+
+    .form .form-content {
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .form .form-content .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+        position: relative;
+    }
+
+    .form .form-content .form-group label {
+        margin-bottom: 2px;
+        font-size: 16px;
+        font-family: "Poppins", sans-serif;
+        font-weight: 400;
+    }
+
+    .form .form-content .form-group input[type=text] {
+        padding: 8px 14px;
+        font-size: 16px;
+        border: 1px solid #e6e6e6;
+        outline: none;
+        border-radius: 5px;
+        font-weight: 400;
+        font-family: "Poppins", sans-serif;
+    }
+
+    .button-group {
+        display: inline-flex;
+        justify-content: right;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .form .form-content button {
+        padding: 10px 14px;
+        width: 25%;
+        margin-left: 14px;
+        color: white;
+        background-color: #333;
+        border: none;
+        border-radius: 3px;
+        font-size: 15px;
+        cursor: pointer;
+    }
+
+    #error-text {
+        color: #721c24;
+        padding: 8px 10px;
+        text-align: center;
+        border-radius: 5px;
+        background: #f8d7da;
+        border: 1px solid #f5c6cb;
+        font-size: 16px;
+        font-weight: 400;
+        visibility: hidden;
+    }
+</style>
 
 <body>
     <div class="wrapper">
@@ -41,7 +123,7 @@
                     </li>
                     <% } else if (user.position==0) {%>
                         <li class="btn-group user-group">
-                            <a href="/profile"><img src="<%= user.image %>" alt=""></a>
+                            <a href="/profile/?tab=profile"><img src="<%= user.image %>" alt=""></a>
                             <div class="dropdown">
                                 <i class="fas fa-sort-down"></i>
                                 <ul class="dropdown-menu">
@@ -55,7 +137,7 @@
                                     </li>
                                     <li>
                                         <i class="fas fa-shopping-cart"></i>
-                                        <a href="/profile/?tab=cart">Giỏ hàng của tôi</a>
+                                        <a href="/profile/?tab=order">Đơn hàng của tôi</a>
                                     </li>
                                     <li>
                                         <i class="fas fa-sign-out-alt"></i>
@@ -106,7 +188,7 @@
                                                         <%= product.oldPrice %>.000đ
                                                     </span>
                                             </div>
-                                            <i class="fas fa-plus-circle open-popup"></i>
+                                            <i class="fas fa-plus-circle open-popup" data-id="<%= product.id %>"></i>
                                         </div>
                                     </div>
 
@@ -134,7 +216,7 @@
                                                         <%= product.oldPrice %>.000đ
                                                     </span>
                                             </div>
-                                            <i class="fas fa-plus-circle open-popup"></i>
+                                            <i class="fas fa-plus-circle open-popup" data-id="<%= product.id %>"></i>
                                         </div>
                                     </div>
 
@@ -162,7 +244,7 @@
                                                         <%= product.oldPrice %>.000đ
                                                     </span>
                                             </div>
-                                            <i class="fas fa-plus-circle open-popup"></i>
+                                            <i class="fas fa-plus-circle open-popup" data-id="<%= product.id %>"></i>
                                         </div>
                                     </div>
 
@@ -190,7 +272,7 @@
                                                         <%= product.oldPrice %>.000đ
                                                     </span>
                                             </div>
-                                            <i class="fas fa-plus-circle open-popup"></i>
+                                            <i class="fas fa-plus-circle open-popup" data-id="<%= product.id %>"></i>
                                         </div>
                                     </div>
 
@@ -207,18 +289,56 @@
                             <div class="cart-title-right" id="remove-all-cart">Xóa tất cả</div>
                         </div>
                         <div class="cart-order">
-
+                            <% if (locals.cart) { %>
+                                <% cart.product.forEach(function(pro) { %>
+                                    <div class="cart-order-item">
+                                        <div class="cart-order-item-left">
+                                            <div class="name">
+                                                <%= pro.product_info.name %> (<%= pro.info.size %>)
+                                            </div>
+                                            <div class="customize">
+                                                <%= pro.info.sugar %> đường, <%= pro.info.ice %> đá<%
+                                                            pro.toppings_info.forEach(function(topping) { %>, Thêm <%=
+                                                                topping.name %>
+                                                                <%})%>
+                                            </div>
+                                            <div class="total" data-price="<%= pro.price * pro.amount %>">
+                                                <%= pro.price %>.000đ x <%= pro.amount %> = <%= pro.price * pro.amount
+                                                            %>.000đ
+                                            </div>
+                                        </div>
+                                        <div class="cart-order-item-right">
+                                            <div class="amount">
+                                                <%= pro.amount %>
+                                            </div>
+                                            <div class="remove-cart" data-id="<%= pro.product_id %>">Xóa</div>
+                                        </div>
+                                    </div>
+                                    <% })%>
+                                        <% } %>
                         </div>
                     </div>
                     <div class="cart-group-bottom">
                         <div class="cart-count">
                             <img src="images/product/icon-glass-tea.png" alt="">
                             <div class="cart-count-item cart-count-item-1">x</div>
-                            <div class="cart-count-item cart-count-item-2">0</div>
+                            <div class="cart-count-item cart-count-item-2">
+                                <%if (locals.cart) {%>
+                                    <%= cart.product.length%>
+                                        <% } else { %>
+                                            0
+                                            <%} %>
+                            </div>
                             <div class="cart-count-item cart-count-item-3">=</div>
-                            <div class="cart-count-item cart-count-item-4">0đ</div>
+                            <div class="cart-count-item cart-count-item-4">
+                                <%if (locals.cart) {%>
+                                    <%= cart.totalPrice%>.000đ
+                                        <% } else { %>
+                                            0đ
+                                            <%} %>
+                            </div>
                         </div>
-                        <div class="cart-button">Thanh Toán</div>
+                        <div class="cart-button" id="pay">Thanh Toán</div>
                     </div>
                 </div>
             </div>
@@ -305,24 +425,19 @@
                     </div>
                     <div class="popup-customize-item popup-customize-topping">
                         <div class="title">Chọn topping</div>
-                        <div class="list-topping">
-                            <div class="content">
-                                <label for="topping-1">
-                                    Thêm trân châu sương mai
-                                    <span>+ 10.000đ</span>
-                                </label>
-                                <input type="checkbox" name="topping" id="topping-1" value="trân châu sương mai"
-                                    data-price="10">
-                                <span class="checkmark-cb"></span>
-                            </div>
-                            <div class="content">
-                                <label for="topping-2">
-                                    Thêm khoai môn
-                                    <span>+ 10.000đ</span>
-                                </label>
-                                <input type="checkbox" name="topping" id="topping-2" value="khoai môn" data-price="10">
-                                <span class="checkmark-cb"></span>
-                            </div>
+                        <div class="list-topping" id="list-topping">
+                            <% products.forEach(function(product, index) { %>
+                                <% if (product.type==5 ) { %>
+                                    <div class="content">
+                                        <label for="<%= product.id %>">
+                                            Thêm <%= product.name %>
+                                                <span>+ <%= product.price %>.000đ</span></label>
+                                        <input type="checkbox" name="topping" id="<%= product.id %>"
+                                            value="<%= product.name %>" data-price="<%= product.price %>">
+                                        <span class="checkmark-cb"></span>
+                                    </div>
+                                    <%}%>
+                                        <%})%>
                         </div>
                     </div>
                 </div>
@@ -332,11 +447,40 @@
 
             </div>
         </div>
+
+        <div class="popup" id="edit-modal" style="display: none;">
+            <div class="form">
+                <div class="form-title">
+                    Cập Nhật Thông Tin
+                </div>
+                <div class="form-content">
+                    <form action="" id="edit-form">
+                        <div class="form-group">
+                            <label for="phone">Số điện thoại</label>
+                            <input type="text" name="phone" id="phone" placeholder="Nhập số điện thoại...">
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Địa chỉ</label>
+                            <input type="text" name="address" id="address" placeholder="Nhập địa chỉ...">
+                        </div>
+                        <div id="error-text">Vui lòng nhập</div>
+                        <div class="button-group">
+                            <button type="button" id="close-btn">Đóng</button>
+                            <button type="submit" id="save-btn">Lưu</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="overlay" id="overlay">
+            </div>
+        </div>
+
         <i class="fas fa-arrow-up" id="scroll-top"></i>
     </div>
 </body>
 
 <script src="scripts/account-btn.js"></script>
 <script src="scripts/handleDropdown.js"></script>
+<script src="scripts/payment.js"></script>
 
 </html>

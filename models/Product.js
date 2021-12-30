@@ -9,7 +9,7 @@ const Product = new Schema({
     oldPrice: Number,
     type: Number, // 1: trà sữa, 2: fresh fruit tea, 3: macchiato, 4: sữa chua dẻo
     customerCare: String,
-    createdAt: { type: String, default: (new Date().getHours()) + ":" + (new Date().getMinutes()) + " ngày " + (new Date().getDate()) + "/" + (new Date().getMonth()) + "/" + (new Date().getFullYear()) },
+    createdAt: String
 })
 
 module.exports = mongoose.model('Product', Product)

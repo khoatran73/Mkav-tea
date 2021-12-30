@@ -51,7 +51,7 @@
                             </li>
                             <% } else if (user.position==0) {%>
                                 <li class="btn-group user-group">
-                                    <a href="/profile"><img src="<%= user.image %>" alt=""></a>
+                                    <a href="/profile/?tab=profile"><img src="<%= user.image %>" alt=""></a>
                                     <div class="dropdown">
                                         <i class="fas fa-sort-down"></i>
                                         <ul class="dropdown-menu">
@@ -65,7 +65,7 @@
                                             </li>
                                             <li>
                                                 <i class="fas fa-shopping-cart"></i>
-                                                <a href="/profile/?tab=cart">Giỏ hàng của tôi</a>
+                                                <a href="/profile/?tab=order">Đơn hàng của tôi</a>
                                             </li>
                                             <li>
                                                 <i class="fas fa-sign-out-alt"></i>

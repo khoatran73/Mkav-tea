@@ -219,6 +219,40 @@ class UserController {
         }
     }
 
+    async updatePhoneAddressUser(req, res) {
+        const { phone, address } = req.body
+        if (!phone || !address) {
+            return res.json({ code: 1, message: "Vui lòng nhâp đủ thông tin" })
+        } else {
+            await User.updateOne({ email: req.session.email }, { phone: phone, address: address })
+                .then(() => {
+                    return res.json({ code: 0, message: "Success" })
+                })
+                .catch(err => res.json({ code: 1, message: err.message }))
+        }
+    }
+
+    async getPhoneAddressUser(req, res) {
+        if (!req.session.email) {
+            return res.json({ code: 2, message: "Vui lòng đăng nhập!" })
+        }
+        else {
+            await User.findOne({ email: req.session.email })
+                .then(user => {
+                    if (user) {
+                        if (!user.phone) {
+                            return res.json({ code: 1, message: "Phone not found", address: user.address || "" })
+                        } else if (!user.address) {
+                            return res.json({ code: 1, message: "Address not found", phone: user.phone || ""  })
+                        } else {
+                            return res.json({ code: 0, message: "Enough" })
+                        }
+                    }
+                })
+                .catch(err => res.json({ code: 1, message: err.message }))
+        }
+    }
+
     logout(req, res) {
         delete req.session.email
         res.redirect("/")
