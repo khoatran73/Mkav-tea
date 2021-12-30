@@ -12,14 +12,14 @@ html {
     font-size: 14px;
 }
 
-#admin .btn-add {
+.tab .btn-add {
     margin: 20px;
     /* display: flex; */
     /* justify-content: center;
     align-items: center; */
 }
 
-#admin table {
+.tab table {
     width: calc(100% - 20px);
     margin: 0 10px;
     margin-bottom: 20px;

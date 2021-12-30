@@ -114,6 +114,10 @@ $(".history").click(function () {
     updateTab("history")
 })
 
+$(".logout").click(function () {
+    window.location.href = "/user/logout"
+})
+
 {
     const statusHelper = {
         0: "Đã giao hàng",
@@ -144,3 +148,4 @@ $(".history").click(function () {
             status.innerHTML = statusHelper[statusInner]
     })
 }
+

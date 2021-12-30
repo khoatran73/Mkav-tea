@@ -42,17 +42,17 @@
         <section class="profile-main">
             <div class="container">
                 <div class="profile-main__left">
-                    <div class="profile-main__left--item active">
+                    <div class="profile-main__left--item employee-manager">
                         <i class="fas fa-user-alt"></i>
                         Quản lí nhân viên
                     </div>
-                    <div class="profile-main__left--item">
+                    <div class="profile-main__left--item request-manager">
                         <i class="fas fa-reply-all"></i>
                         Quản lí các yêu cầu
                     </div>
-                    <div class="profile-main__left--item">
+                    <div class="profile-main__left--item" id="logout">
                         <i class="fas fa-sign-out-alt"></i>
-                        <div id="logout">Đăng xuất</div>
+                        Đăng xuất
                     </div>
                     <script>
                         $("#logout").click(function () {
@@ -61,7 +61,7 @@
                     </script>
                 </div>
                 <div class="profile-main__right">
-                    <div class="tab" id="admin">
+                    <div class="tab" id="employee-manager">
                         <div class="btn-add">
                             <button type="button" class="btn btn-success" data-target="#add-modal"
                                 data-toggle="modal">Thêm nhân viên</button>
@@ -81,22 +81,23 @@
                             <tbody id="table-body">
                                 <% users.forEach(function(user, index) { %>
                                     <tr>
-                                        <th scope="row" class="index text-center">
+                                        <th scope="row" class="index text-center align-middle">
                                             <%= (index + 1) %>
                                         </th>
-                                        <td>
+                                        <td class="align-middle">
                                             <%= user.name %>
                                         </td>
-                                        <td class="text-center gender">
+                                        <td class="text-center gender align-middle">
                                             <%= user.gender %>
                                         <td>
                                             <%= user.email %>
                                         </td>
-                                        <td class="text-center"><img src="../<%= user.image %>" alt=""></td>
-                                        <td class="position">
+                                        <td class="text-center align-middle"><img src="../<%= user.image %>" alt="">
+                                        </td>
+                                        <td class="position align-middle">
                                             <%= user.position %>
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-center align-middle">
                                             <button type="button" class="edit-employee btn btn-sm btn-outline-primary"
                                                 data-id="<%= user._id %>" <% if (user.position===0) { %> disabled
                                                 style="cursor: not-allowed"<%} %>>Sửa</button>

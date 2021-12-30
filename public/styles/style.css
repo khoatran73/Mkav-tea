@@ -744,7 +744,7 @@ footer .container {
 .order-sidebar-left h3 {
     font-size: 2.0rem;
     font-weight: 500;
-    padding: 12px 12px 12px 20px;
+    padding: 12px 12px 12px 16px;
     border-bottom: 1px solid rgb(240, 239, 239);
 }
 
@@ -755,7 +755,7 @@ footer .container {
 .order-sidebar-left ul li {
     margin: 0 16px;
     padding: 12px 0 10px 0;
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     font-weight: 400;
     border-bottom: 1px solid rgb(240, 239, 239);
     color: var(--text);

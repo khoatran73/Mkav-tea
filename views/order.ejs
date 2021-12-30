@@ -117,7 +117,7 @@
                     <input type="text" placeholder="Search">
                 </div>
                 <% if (!locals.user) { %>
-                    <li class="btn-group" style="width: 30%; justify-content: right">
+                    <li class="btn-group">
                         <button class="btn" id="login-btn">Đăng Nhập</button>
                         <button class="btn btn-transparent" id="register-btn">Đăng Ký</button>
                     </li>
@@ -147,14 +147,19 @@
                             </div>
                         </li>
 
-                        <% } else {%>
+                        <% } else if (user.position==6) {%>
                             <li class="btn-group user-group">
-                                <a href="/profile"><img src="<%= user.image %>" alt=""></a>
-                                <div class="dropdown">
-
-                                </div>
+                                <a href="/admin/?tab=employee-manager"><img src="<%= user.image %>" alt=""></a>
                             </li>
-                            <% }%>
+                            <% } else if (user.position==1) {%>
+                                <li class="btn-group user-group">
+                                    <a href="/customer-care/?tab=product-manager"><img src="<%= user.image %>" alt=""></a>
+                                </li>
+                                <% } else if (user.position==3) {%>
+                                    <li class="btn-group user-group">
+                                        <a href="/salesman/?tab=order-manager"><img src="<%= user.image %>" alt=""></a>
+                                    </li>
+                                    <% }%>
             </div>
         </header>
         <section class="order-main">

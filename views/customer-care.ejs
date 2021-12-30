@@ -47,9 +47,9 @@
                         <i class="fas fa-user-alt"></i>
                         Quản lí sản phẩm
                     </div>
-                    <div class="profile-main__left--item">
+                    <div class="profile-main__left--item" id="logout">
                         <i class="fas fa-sign-out-alt"></i>
-                        <div id="logout">Đăng xuất</div>
+                        Đăng xuất
                     </div>
                     <script>
                         $("#logout").click(function () {
@@ -80,30 +80,30 @@
                             <tbody id="table-body">
                                 <% products.forEach(function(product, index) { %>
                                     <tr>
-                                        <th scope="row" class="index text-center">
+                                        <th scope="row" class="index text-center align-middle">
                                             <%= (index + 1) %>
                                         </th>
-                                        <td>
+                                        <td class="align-middle">
                                             <%= product.name %>
                                         </td>
-                                        <td class="text-center"><img src="../<%= product.image %>" alt=""></td>
-                                        <td>
+                                        <td class="text-center align-middle"><img src="../<%= product.image %>" alt=""></td>
+                                        <td class="align-middle">
                                             <%= product.price %>.000đ
                                         </td>
-                                        <td>
+                                        <td class="align-middle">
                                             <%= product.oldPrice %>.000đ
                                         </td>
                                         
-                                        <td class="type">
+                                        <td class="type align-middle">
                                             <%= product.type %>
                                         </td>
-                                        <td>
+                                        <td class="align-middle">
                                             <%= product.customerCare %>
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-center align-middle">
                                             <%= product.createdAt %>
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-center align-middle">
                                             <button type="button" class="edit-product btn btn-sm btn-outline-primary"
                                                 data-id="<%= product.id %>">Sửa</button>
                                             <button type="button" class="delete-product btn btn-sm btn-outline-danger"
