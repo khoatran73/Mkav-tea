@@ -12,12 +12,10 @@ class AdminController {
             })
 
         await Product.find({})
-            .then(products => {
-                res.render("customer-care", {
-                    user: user,
-                    products: products
-                })
-            })
+            .then(products => res.render("customer-care", {
+                user: user,
+                products: products
+            }))
     }
 
     async addProduct(req, res) {
@@ -50,7 +48,10 @@ class AdminController {
                     product: product
                 })
             } catch (err) {
-
+                return res.json({
+                    code: 2,
+                    message: err.message
+                })
             }
 
         }
@@ -68,19 +69,17 @@ class AdminController {
                     })
                 }
             })
-            .catch(err => {
-                res.json({
-                    code: 1,
-                    message: "Invalid Id"
-                })
-            })
+            .catch(() => res.json({
+                code: 1,
+                message: "Invalid Id"
+            }))
     }
 
     async editProduct(req, res) {
         const id = req.query.id
         const { name, type, price, oldPrice } = req.body
 
-        if (!name || !type || !price || !oldPrice || !req.file) {
+        if (!name || !type || !price || !oldPrice) {
             return res.json({ code: 1, message: "Vui lòng nhập đủ thông tin" })
         } else {
             if (req.file) {
@@ -99,9 +98,15 @@ class AdminController {
                     image: result.secure_url,
                     cloudinary_id: result.cloudinary_id
                 })
-                    .then(() => {
-                        return res.json({ code: 0, message: "success" })
-                    })
+                    .then(() => res.json({ code: 0, message: "success" }))
+            } else {
+                await Product.updateOne({ id: id }, {
+                    name: name,
+                    type: type,
+                    price: price,
+                    oldPrice: oldPrice,
+                })
+                    .then(() => res.json({ code: 0, message: "success" }))
             }
         }
     }

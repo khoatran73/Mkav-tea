@@ -8,14 +8,10 @@ class SiteController {
         let user, products
 
         await User.findOne({ email: email })
-            .then(u => {
-                user = u
-            })
+            .then(u => user = u)
 
         await Product.find({}).sort({ price: "desc" })
-            .then(prs => {
-                products = prs
-            })
+            .then(prs => products = prs)
 
         return res.render("index", { user: user, products: products || null })
     }
@@ -39,9 +35,7 @@ class SiteController {
         let orders
 
         await Order.find({ email: email })
-            .then(ods => {
-                orders = ods
-            })
+            .then(ods => orders = ods)
 
         await User.findOne({ email: email })
             .then(user => {
@@ -53,9 +47,6 @@ class SiteController {
                 } else {
                     return res.redirect("/")
                 }
-            })
-            .catch(err => {
-                console.log(err)
             })
     }
 

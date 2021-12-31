@@ -14,9 +14,6 @@ class OrderController {
                     user = u
                 }
             })
-            .catch(err => {
-                console.log(err)
-            })
 
         await Cart.findOne({ email: req.session.email })
             .then(c => {
@@ -24,13 +21,11 @@ class OrderController {
             })
 
         await Product.find({})
-            .then(products => {
-                res.render("order", {
-                    user: user || null,
-                    products: products,
-                    cart: cart
-                })
-            })
+            .then(products => res.render("order", {
+                user: user || null,
+                products: products,
+                cart: cart
+            }))
     }
 }
 

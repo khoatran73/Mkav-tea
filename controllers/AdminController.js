@@ -5,18 +5,16 @@ class AdminController {
     async admin(req, res) {
         let userObj
 
-        await User.find({})//({ position: { $ne: 0 } })
+        await User.find({})
             .then(users => {
                 userObj = users
             })
 
         await User.findOne({ email: req.session.email })
-            .then(user => {
-                res.render("admin", {
-                    users: userObj,
-                    admin: user
-                })
-            })
+            .then(user => res.render("admin", {
+                users: userObj,
+                admin: user
+            }))
     }
 
     async getEmployee(req, res) {
@@ -24,19 +22,17 @@ class AdminController {
         await User.findOne({ _id: _id })
             .then(user => {
                 if (user) {
-                    res.json({
+                    return res.json({
                         code: 0,
                         message: "success",
                         user: user
                     })
                 }
             })
-            .catch(err => {
-                res.json({
-                    code: 1,
-                    message: "Invalid Id"
-                })
-            })
+            .catch(err => res.json({
+                code: 1,
+                message: "Invalid Id"
+            }))
     }
 
     async deleteEmployee(req, res) {

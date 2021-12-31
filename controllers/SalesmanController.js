@@ -7,9 +7,7 @@ class SalesmanController {
             .then(async user => {
                 if (user) {
                     await Order.find({})
-                        .then(orders => {
-                            return res.render("salesman", { salesman: user, orders: orders })
-                        })
+                        .then(orders => res.render("salesman", { salesman: user, orders: orders }))
 
                 }
             })

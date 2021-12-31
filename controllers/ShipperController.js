@@ -7,9 +7,7 @@ class ShipperController {
             .then(async user => {
                 if (user) {
                     await Order.find({ status: 2 })
-                        .then(orders => {
-                            return res.render("shipper", { shipper: user, orders: orders })
-                        })
+                        .then(orders => res.render("shipper", { shipper: user, orders: orders }))
                 }
             })
     }

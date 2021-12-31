@@ -129,29 +129,41 @@ class UserController {
                 } else {
                     if (!name || !email || !position || !gender) {
                         return res.json({ code: 1, message: "Không được để trống bất kỳ trường nào" })
-                    }
+                    } else {
+                        if (req.file) {
+                            await cloudinary.uploader.destroy(u.cloudinary_id)
 
-                    if (req.file) {
-                        await cloudinary.uploader.destroy(u.cloudinary_id)
-
-                        const result = await cloudinary.uploader.upload(req.file.path)
-                        await User.updateOne({ _id: _id }, {
-                            name: name,
-                            email: email,
-                            gender: gender,
-                            position: position,
-                            image: result.secure_url,
-                            cloudinary_id: result.public_id
-                        })
-                            .then(async () => {
-                                await User.findOne({ _id: _id })
-                                    .then(user => {
-                                        res.json({
-                                            code: 0, message: "success", user: user
-                                        })
-                                    })
-    
+                            const result = await cloudinary.uploader.upload(req.file.path)
+                            await User.updateOne({ _id: _id }, {
+                                name: name,
+                                email: email,
+                                gender: gender,
+                                position: position,
+                                image: result.secure_url,
+                                cloudinary_id: result.public_id
                             })
+                                .then(async () => {
+                                    await User.findOne({ _id: _id })
+                                        .then(user => res.json({
+                                            code: 0, message: "success", user: user
+                                        }))
+
+                                })
+                        } else {
+                            await User.updateOne({ _id: _id }, {
+                                name: name,
+                                email: email,
+                                gender: gender,
+                                position: position
+                            })
+                                .then(async () => {
+                                    await User.findOne({ _id: _id })
+                                        .then(user => res.json({
+                                            code: 0, message: "success", user: user
+                                        }))
+
+                                })
+                        }
                     }
                 }
             })

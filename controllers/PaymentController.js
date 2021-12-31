@@ -45,9 +45,7 @@ class PaymentController {
                 price += JSON.parse(cart.toppings[j]).price
 
                 await Product.findOne({ id: JSON.parse(cart.toppings[j]).id })
-                    .then(topping => {
-                        toppings.push(topping)
-                    })
+                    .then(topping => toppings.push(topping))
             }
 
         await Product.findOne({ id: cart.product_id })
@@ -86,8 +84,6 @@ class PaymentController {
                     cartDB.save()
                 }
             })
-            .catch(err => console.log(err))
-
     }
 
     async deleteCartId(req, res) {
@@ -126,14 +122,14 @@ class PaymentController {
     }
 
     async addOrder(req, res) {
-        let customer 
+        let customer
 
-        await User.findOne({ email: req.session.email})
-        .then(user => {
-            if (user) {
-                customer = user
-            }
-        })
+        await User.findOne({ email: req.session.email })
+            .then(user => {
+                if (user) {
+                    customer = user
+                }
+            })
 
         await Cart.findOne({ email: req.session.email })
             .then(async cart => {
@@ -151,7 +147,7 @@ class PaymentController {
 
                     return res.json({ code: 0, message: "success" })
                 } else {
-                    res.json({ code: 1, message: "Chưa có gì trong giỏ hàng" })
+                    return res.json({ code: 1, message: "Chưa có gì trong giỏ hàng" })
                 }
             })
     }
