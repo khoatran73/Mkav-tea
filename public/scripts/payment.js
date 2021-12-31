@@ -62,7 +62,6 @@ $("#edit-form").submit(function (e) {
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         success: function (res) {
-            console.log(res)
             if (res.code === 0) {
                 swal("Good Job!", "Cập nhật thông tin thành công", "success")
                     .then(() => {

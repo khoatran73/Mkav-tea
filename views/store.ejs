@@ -83,17 +83,81 @@
                                 <% } else if (user.position==6) {%>
                                     <li class="btn-group user-group">
                                         <a href="/admin/?tab=employee-manager"><img src="<%= user.image %>" alt=""></a>
+                                        <div class="dropdown">
+                                            <i class="fas fa-sort-down"></i>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <i class="fas fa-user-alt"></i>
+                                                    <a href="/admin/?tab=employee-manager">Quản lí nhân viên</a>
+                                                </li>
+                                                <li>
+                                                    <i class="fas fa-reply-all"></i>
+                                                    <a href="/admin/?tab=request-manager">Quản lí yêu cầu</a>
+                                                </li>
+                                                <li>
+                                                    <i class="fas fa-sign-out-alt"></i>
+                                                    <a href="/user/logout">Đăng xuất</a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </li>
                                     <% } else if (user.position==1) {%>
                                         <li class="btn-group user-group">
                                             <a href="/customer-care/?tab=product-manager"><img src="<%= user.image %>"
                                                     alt=""></a>
+                                            <div class="dropdown">
+                                                <i class="fas fa-sort-down"></i>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <i class="fas fa-mug-hot"></i>
+                                                        <a href="/customer-care/?tab=product-manager">Quản lí sản
+                                                            phẩm</a>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fas fa-sign-out-alt"></i>
+                                                        <a href="/user/logout">Đăng xuất</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </li>
+
                                         <% } else if (user.position==3) {%>
                                             <li class="btn-group user-group">
-                                                <a href="/salesman/?tab=order-manager"><img src="<%= user.image %>" alt=""></a>
+                                                <a href="/salesman/?tab=order-manager"><img src="<%= user.image %>"
+                                                        alt=""></a>
+                                                <div class="dropdown">
+                                                    <i class="fas fa-sort-down"></i>
+                                                    <ul class="dropdown-menu">
+                                                        <li>
+                                                            <i class="fas fa-shopping-cart"></i>
+                                                            <a href="/salesman/?tab=order-manager">Quản lí đặt hàng</a>
+                                                        </li>
+                                                        <li>
+                                                            <i class="fas fa-sign-out-alt"></i>
+                                                            <a href="/user/logout">Đăng xuất</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </li>
-                                            <% }%>
+                                            <% } else if (user.position==2) {%>
+                                                <li class="btn-group user-group">
+                                                    <a href="/shipper/?tab=shipper-manager"><img src="<%= user.image %>"
+                                                            alt=""></a>
+                                                    <div class="dropdown">
+                                                        <i class="fas fa-sort-down"></i>
+                                                        <ul class="dropdown-menu">
+                                                            <li>
+                                                                <i class="fas fa-shopping-cart"></i>
+                                                                <a href="/shipper/?tab=shipper-manager">Đơn đặt hàng</a>
+                                                            </li>
+                                                            <li>
+                                                                <i class="fas fa-sign-out-alt"></i>
+                                                                <a href="/user/logout">Đăng xuất</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                                <% }%>
                     </ul>
                 </div>
             </div>

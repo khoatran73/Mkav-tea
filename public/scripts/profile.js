@@ -15,7 +15,6 @@ $("#save-profile-btn").click(function (e) {
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         success: function (res) {
-            console.log(res)
             if (res.code === 0) {
                 swal("Good Job!", "Cập nhật thông tin thành công", "success")
                     .then(() => {
@@ -24,7 +23,6 @@ $("#save-profile-btn").click(function (e) {
             }
         },
         error: function (err) {
-            console.log(err)
         }
     })
 
@@ -52,7 +50,6 @@ $("#user-image").change(function () {
         processData: false,
         contentType: false,
         success: function (res) {
-            console.log(res)
             if (res.code === 0) {
                 location.reload()
             }
@@ -130,17 +127,16 @@ $(".logout").click(function () {
         const statusInner = parseInt(status.innerHTML.trim())
 
         if (statusInner === 0) {
-            console.log("0")
             status.classList.add("text-success")
+            $(".update").addClass("text-success")
         } else if (statusInner === 1) {
-            console.log("1")
             status.classList.add("text-warning")
         } else if (statusInner === 2) {
-            console.log("2")
             status.classList.add("text-info")
+            $(".update").addClass("text-info")
         } else if (statusInner === 3) {
-            console.log("3")
             status.classList.add("text-danger")
+            $(".update").addClass("text-danger")
         }
 
 
@@ -149,3 +145,8 @@ $(".logout").click(function () {
     })
 }
 
+{
+    document.querySelectorAll(".date-modifier").forEach(date => {
+        date.innerHTML = date.innerHTML.trim().replace("GMT+0700 (Indochina Time)", "")
+    })
+}

@@ -1,6 +1,7 @@
 const Product = require("../models/Product")
 const Cart = require("../models/Cart")
 const Order = require("../models/Order")
+const User = require("../models/User")
 
 class PaymentController {
     async payment(req, res) {
@@ -125,12 +126,22 @@ class PaymentController {
     }
 
     async addOrder(req, res) {
+        let customer 
+
+        await User.findOne({ email: req.session.email})
+        .then(user => {
+            if (user) {
+                customer = user
+            }
+        })
+
         await Cart.findOne({ email: req.session.email })
             .then(async cart => {
                 if (cart) {
                     await Cart.deleteOne({ email: req.session.email })
                     const orderObj = {
                         email: req.session.email,
+                        customer_info: customer,
                         cart: cart,
                         status: 1
                     }

@@ -62,7 +62,10 @@ $(document).ready(function () {
 
     $(".open-popup").click(function (e) {
         const id = e.target.dataset.id
+        getProductInfo(id)
+    })
 
+    function getProductInfo(id) {
         $.ajax({
             url: "http://localhost:3000/payment/" + id,
             type: "GET",
@@ -87,7 +90,7 @@ $(document).ready(function () {
             error: function (err) {
             }
         })
-    })
+    }
 
     $(".overlay").click(() => {
         $("#popup").css("display", "none")

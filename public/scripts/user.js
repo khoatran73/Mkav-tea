@@ -82,8 +82,6 @@ window.onload = function () {
             password: $("#password").val()
         })
 
-        console.log(data)
-
         $.ajax({
             type: "POST",
             url: "http://localhost:3000/user/login",
