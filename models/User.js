@@ -3,6 +3,7 @@ const Schema = mongoose.Schema
 const crypto = require('crypto')
 
 const User = new Schema({
+    cloudinary_id: String,
     name: String,
     gender: String,
     email: { type: String, unique: true },

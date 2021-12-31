@@ -3,6 +3,7 @@ const Schema = mongoose.Schema
 
 const Product = new Schema({
     id: { type: String, unique: true, require: true },
+    cloudinary_id: String,
     name: String,
     image: String,
     price: Number,

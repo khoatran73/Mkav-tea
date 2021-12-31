@@ -1,8 +1,5 @@
 const User = require("../models/User")
-const fs = require('fs')
-const path = require('path')
-const { promisify } = require('util')
-const unlink = promisify(fs.unlink)
+const cloudinary = require("../middlewares/cloudinary")
 
 class AdminController {
     async admin(req, res) {
@@ -47,28 +44,19 @@ class AdminController {
 
         await User.findOne({ _id: _id })
             .then(async user => {
+                await cloudinary.uploader.destroy(user.cloudinary_id)
+
                 await User.deleteOne({ _id: _id })
-                    .then(() => {
-                        unlink(path.join(__dirname, '../public/' + user.image))
-                        return res.json({
-                            code: 0,
-                            message: "success"
-                        })
-                    })
-                    .catch(err => {
-                        return res.json({
-                            code: 1,
-                            message: err
-                        })
-                    })
+                    .then(() => res.json({
+                        code: 0,
+                        message: "success"
+                    }))
+                    .catch(err => res.json({
+                        code: 1,
+                        message: err
+                    }))
             })
-            .catch(err => {
-                console.log(err)
-            })
-
-
-
-
+            .catch(err => res.json({ code: 1, message: err.message }))
     }
 }
 

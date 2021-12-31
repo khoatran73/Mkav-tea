@@ -17,7 +17,7 @@ class SiteController {
                 products = prs
             })
 
-        return res.render("index", { user: user, products: products })
+        return res.render("index", { user: user, products: products || null })
     }
 
     async store(req, res) {

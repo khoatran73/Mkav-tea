@@ -1,9 +1,6 @@
-const fs = require('fs')
-const path = require('path')
-const { promisify } = require('util')
-const unlink = promisify(fs.unlink)
 const { validationResult } = require('express-validator')
 const User = require("../models/User")
+const cloudinary = require("../middlewares/cloudinary")
 
 class UserController {
     login(req, res) {
@@ -55,9 +52,6 @@ class UserController {
 
         if (!result.isEmpty()) {
             error = result.errors[0].msg
-            if (req.file) {
-                unlink(path.join(__dirname, '../public/images/users/' + req.file.filename))
-            }
             return res.json({
                 code: 1,
                 message: error
@@ -83,32 +77,40 @@ class UserController {
                 })
 
             if (error) {
-                if (req.file) {
-                    unlink(path.join(__dirname, '../public/images/users/' + req.file.filename))
-                }
-
                 return res.json({
                     code: 1,
                     message: error
                 })
             } else {
-                let userJson = {
-                    name: name,
-                    gender: gender,
-                    email: email,
-                    position: parseInt(req.body.position) || 0,
-                    image: req.file.path.split("\\").slice(1).join("/")
+                try {
+                    const result = await cloudinary.uploader.upload(req.file.path)
+
+                    let userJson = {
+                        cloudinary_id: result.public_id,
+                        name: name,
+                        gender: gender,
+                        email: email,
+                        position: parseInt(req.body.position) || 0,
+                        // image: req.file.path.split("\\").slice(1).join("/")
+                        image: result.secure_url
+                    }
+
+                    let user = new User(userJson)
+                    user.setPassword(password)
+                    user.save()
+
+                    return res.json({
+                        code: 0,
+                        message: "Success",
+                        user: user
+                    })
+                } catch (err) {
+                    return res.json({
+                        code: 2,
+                        message: err,
+                    })
                 }
 
-                let user = new User(userJson)
-                user.setPassword(password)
-                user.save()
-
-                return res.json({
-                    code: 0,
-                    message: "Success",
-                    user: user
-                })
             }
         }
     }
@@ -117,49 +119,40 @@ class UserController {
         const _id = req.query._id
         const { name, email, position, gender } = req.body
 
-        let image = ""
-        let user
-
         await User.findOne({ _id: _id })
             .then(async u => {
                 if (u.position === 0) {
-                    if (req.file)
-                        unlink(path.join(__dirname, '../public/images/users/' + req.file.filename))
                     return res.json({
                         code: 1,
                         message: "Không được phép sửa thông tin khách hàng"
                     })
                 } else {
                     if (!name || !email || !position || !gender) {
-                        if (req.file)
-                            unlink(path.join(__dirname, '../public/images/users/' + req.file.filename))
-
                         return res.json({ code: 1, message: "Không được để trống bất kỳ trường nào" })
                     }
 
-                    user = u
-
                     if (req.file) {
-                        image = req.file.path.split("\\").slice(1).join("/")
-                        unlink(path.join(__dirname, '../public/' + user.image))
-                    }
+                        await cloudinary.uploader.destroy(u.cloudinary_id)
 
-                    await User.updateOne({ _id: _id }, {
-                        name: name,
-                        email: email,
-                        gender: gender,
-                        position: position,
-                        image: image || user.image
-                    })
-                        .then(async () => {
-                            await User.findOne({ _id: _id })
-                                .then(user => {
-                                    res.json({
-                                        code: 0, message: "success", user: user
-                                    })
-                                })
-
+                        const result = await cloudinary.uploader.upload(req.file.path)
+                        await User.updateOne({ _id: _id }, {
+                            name: name,
+                            email: email,
+                            gender: gender,
+                            position: position,
+                            image: result.secure_url,
+                            cloudinary_id: result.public_id
                         })
+                            .then(async () => {
+                                await User.findOne({ _id: _id })
+                                    .then(user => {
+                                        res.json({
+                                            code: 0, message: "success", user: user
+                                        })
+                                    })
+    
+                            })
+                    }
                 }
             })
     }
@@ -199,19 +192,27 @@ class UserController {
                 error = "Size ảnh không được quá 20MB"
             } else {
                 await User.findOne({ email: req.session.email })
-                    .then(user => {
-                        unlink(path.join(__dirname, '../public/' + user.image))
+                    .then(async user => {
+                        await cloudinary.uploader.destroy(user.cloudinary_id)
                     })
 
-                await User.updateOne({ email: req.session.email }, {
-                    image: req.file.path.split("\\").slice(1).join("/")
-                })
-                    .then(() => {
-                        res.json({ code: 0, message: "success" })
+                try {
+                    const result = await cloudinary.uploader.upload(req.file.path)
+                    await User.updateOne({ email: req.session.email }, {
+                        image: result.secure_url,
+                        cloudinary_id: result.public_id
                     })
-                    .catch(err => {
-                        res.json({ code: 1, message: err.message })
-                    })
+                        .then(() => {
+                            return res.json({ code: 0, message: "success" })
+                        })
+                        .catch(err => {
+                            return res.json({ code: 1, message: err.message })
+                        })
+                } catch (err) {
+                    return res.json({ code: 2, message: err })
+                }
+
+
             }
         }
     }
@@ -240,7 +241,7 @@ class UserController {
                         if (!user.phone) {
                             return res.json({ code: 1, message: "Phone not found", address: user.address || "" })
                         } else if (!user.address) {
-                            return res.json({ code: 1, message: "Address not found", phone: user.phone || ""  })
+                            return res.json({ code: 1, message: "Address not found", phone: user.phone || "" })
                         } else {
                             return res.json({ code: 0, message: "Enough" })
                         }

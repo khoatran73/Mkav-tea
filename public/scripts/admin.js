@@ -15,47 +15,13 @@ $("#add-form").submit(e => {
                     .then(() => {
                         $('#add-modal').modal('hide')
                         location.reload()
-                        // addNewRow(res.user)
-
-                        // clickDeleteEmployeeButton()
                     })
             } else {
                 $("#error-text").css("visibility", "visible")
                 $("#error-text").html(res.message)
             }
-        },
-        error: function (err) {
-
         }
     })
-
-    function addNewRow(user) {
-        const tr = document.createElement("tr")
-        const index = parseInt($("#table-body").children().length) + 1
-        tr.innerHTML = `<th scope="row" class="index text-center">
-                ${index}
-            </th>
-            <td>
-                ${user.name}
-            </td>
-            <td class="text-center gender">${user.gender}<td>
-                ${user.email}
-            </td>
-            <td class="text-center"><img src="../${user.image}" alt=""></td>
-            <td class="position">
-                ${user.position}
-            </td>
-            <td class="text-center">
-                <button type="button" class="btn btn-sm btn-outline-primary"
-                    data-target="#edit-modal" data-toggle="modal">Sửa</button>
-                <button type="button" class="delete-employee btn btn-sm btn-outline-danger"
-                    data-id="${user._id}">Xóa</button>
-            </td>`
-
-        document.getElementById("table-body").appendChild(tr)
-        helper()
-    }
-
 })
 
 $("#edit-form").submit(e => {
@@ -130,13 +96,6 @@ function clickDeleteEmployeeButton() {
             .then((willDelete) => {
                 if (willDelete) {
                     deleteEmployee(e)
-                    swal("Xóa Nhân viên thành công", {
-                        icon: "success",
-                    })
-                } else {
-                    swal("Nhân viên đã được giữ lại", {
-                        icon: "success",
-                    })
                 }
             })
     })

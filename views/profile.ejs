@@ -37,7 +37,7 @@
                     <a href="/"><img src="../images/mkav-tea/logo_transparent.png" alt=""></a>
                 </div>
                 <li class="btn-group user-group">
-                    <img src="../<%= user.image %>" alt="">
+                    <img src="<%= user.image %>" alt="">
                 </li>
             </div>
         </header>
@@ -67,7 +67,7 @@
                         </div>
                         <div class="profile-content">
                             <div class="avatar">
-                                <img src="../<%= user.image %>" alt="">
+                                <img src="<%= user.image %>" alt="">
                                 <form id="image-form" action="" enctype="multipart/form-data" method="POST">
                                     <label for="user-image"><i class="fas fa-camera"></i></label>
                                     <input type="file" name="image" id="user-image" style="display: none;"
@@ -142,7 +142,7 @@
                                                                 %>.000đ)
                                                     </td>
                                                     <td class="text-center align-middle"><img
-                                                            src="../<%= product.product_info.image %>" alt="">
+                                                            src="<%= product.product_info.image %>" alt="">
                                                     </td>
                                                     <td class="align-middle">Size <%= product.info.size %> <br>
                                                             <%= product.info.sugar %> Đường <br>

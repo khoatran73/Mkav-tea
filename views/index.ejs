@@ -178,29 +178,34 @@
                     <img class="decor-absolute" src="images/product/decor-3.png" alt="">
                 </div>
                 <div class="product-list">
-                    <% for (let i = 0; i < 8; i++) { %>
-                        <div class="product">
-                            <div class="product-tag">
-                                <div class="new-tag">New</div>
-                                <div class="discount-tag"><%= -100 + (products[i].oldPrice / products[i].price) * 100 %></div>
-                            </div>
-                            <div class="product-img-wrap">
-                                <img class="product-img" src="<%= products[i].image %>" alt="">
-                            </div>
-                            <div class="product-item">
-                                <h3 class="product-title">
-                                    <%= products[i].name %>
-                                </h3>
-                                <div class="product-price">
-                                    <%= products[i].price %>,000đ <span><%= products[i].oldPrice %>,000đ</span>
+                    <% if (locals.products) { %>
+                        <% for (let i=0; i < 8; i++) { %>
+                            <div class="product">
+                                <div class="product-tag">
+                                    <div class="new-tag">New</div>
+                                    <div class="discount-tag">
+                                        <%= -100 + (products[i].oldPrice / products[i].price) * 100 %>
+                                    </div>
                                 </div>
-                                <a href="/order" class="btn btn-sm">
-                                    Đặt Hàng
-                                </a>
+                                <div class="product-img-wrap">
+                                    <img class="product-img" src="<%= products[i].image %>" alt="">
+                                </div>
+                                <div class="product-item">
+                                    <h3 class="product-title">
+                                        <%= products[i].name %>
+                                    </h3>
+                                    <div class="product-price">
+                                        <%= products[i].price %>,000đ <span>
+                                                <%= products[i].oldPrice %>,000đ
+                                            </span>
+                                    </div>
+                                    <a href="/order" class="btn btn-sm">
+                                        Đặt Hàng
+                                    </a>
+                                </div>
                             </div>
-                        </div>
                         <%}%>
-                    
+                    <%}%>
                 </div>
                 <div class="product-footer">
                     <a href="/order" class="btn btn-md">

@@ -1,10 +1,6 @@
 const Product = require("../models/Product")
 const User = require("../models/User")
-const fs = require('fs')
-const path = require('path')
-const { promisify } = require('util')
-const unlink = promisify(fs.unlink)
-// const { validationResult } = require('express-validator')
+const cloudinary = require("../middlewares/cloudinary")
 
 class AdminController {
     async customerCare(req, res) {
@@ -28,30 +24,35 @@ class AdminController {
         const { name, type, price, oldPrice } = req.body
 
         if (!name || !type || !price || !oldPrice || !req.file) {
-            if (req.file)
-                unlink(path.join(__dirname, '../public/images/products/' + req.file.filename))
-
             return res.json({ code: 1, message: "Vui lòng nhập đủ thông tin sản phẩm" })
         } else {
-            let productJson = {
-                id: (Math.random() + 1).toString(36).substring(2),
-                name: name,
-                image: req.file.path.split("\\").slice(1).join("/"),
-                type: type,
-                price: price,
-                oldPrice: oldPrice,
-                customerCare: req.session.email,
-                createdAt: (new Date().getHours()) + ":" + (new Date().getMinutes()) + " ngày " + (new Date().getDate()) + "/" + (new Date().getMonth()) + "/" + (new Date().getFullYear())
+            try {
+                const result = await cloudinary.uploader.upload(req.file.path)
+
+                let productJson = {
+                    id: (Math.random() + 1).toString(36).substring(2),
+                    cloudinary_id: result.public_id,
+                    name: name,
+                    image: result.secure_url,
+                    type: type,
+                    price: price,
+                    oldPrice: oldPrice,
+                    customerCare: req.session.email,
+                    createdAt: (new Date().getHours()) + ":" + (new Date().getMinutes()) + " ngày " + (new Date().getDate()) + "/" + (new Date().getMonth()) + "/" + (new Date().getFullYear())
+                }
+
+                let product = new Product(productJson)
+                product.save()
+
+                return res.json({
+                    code: 0,
+                    message: "Success",
+                    product: product
+                })
+            } catch (err) {
+
             }
 
-            let product = new Product(productJson)
-            product.save()
-
-            return res.json({
-                code: 0,
-                message: "Success",
-                product: product
-            })
         }
     }
 
@@ -78,36 +79,30 @@ class AdminController {
     async editProduct(req, res) {
         const id = req.query.id
         const { name, type, price, oldPrice } = req.body
-        let image = ""
-        let product
 
-        if (!name || !type || !price || !oldPrice) {
-            if (req.file)
-                unlink(path.join(__dirname, '../public/images/users/' + req.file.filename))
-
+        if (!name || !type || !price || !oldPrice || !req.file) {
             return res.json({ code: 1, message: "Vui lòng nhập đủ thông tin" })
         } else {
-            await Product.findOne({ id: id })
-                .then(p => {
-                    if (p)
-                        product = p
-                })
-
             if (req.file) {
-                image = req.file.path.split("\\").slice(1).join("/")
-                unlink(path.join(__dirname, '../public/' + product.image))
-            }
+                await Product.findOne({ id: id })
+                    .then(async product => {
+                        await cloudinary.uploader.destroy(product.cloudinary_id)
+                    })
 
-            await Product.updateOne({ id: id }, {
-                name: name,
-                type: type,
-                price: price,
-                oldPrice: oldPrice,
-                image: image || product.image
-            })
-                .then(() => {
-                    return res.json({ code: 0, message: "success"})
+                const result = await cloudinary.uploader.upload(req.file.path)
+
+                await Product.updateOne({ id: id }, {
+                    name: name,
+                    type: type,
+                    price: price,
+                    oldPrice: oldPrice,
+                    image: result.secure_url,
+                    cloudinary_id: result.cloudinary_id
                 })
+                    .then(() => {
+                        return res.json({ code: 0, message: "success" })
+                    })
+            }
         }
     }
 
@@ -116,26 +111,20 @@ class AdminController {
 
         await Product.findOne({ id: id })
             .then(async product => {
-                await Product.deleteOne({ id: id })
-                    .then(() => {
-                        unlink(path.join(__dirname, '../public/' + product.image))
-                        return res.json({
-                            code: 0,
-                            message: "success"
-                        })
-                    })
-                    .catch(err => {
-                        return res.json({
-                            code: 1,
-                            message: err
-                        })
-                    })
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }
+                await cloudinary.uploader.destroy(product.cloudinary_id)
 
+                await Product.deleteOne({ id: id })
+                    .then(() => res.json({
+                        code: 0,
+                        message: "success"
+                    }))
+                    .catch(err => res.json({
+                        code: 1,
+                        message: err.message
+                    }))
+            })
+            .catch(err => res.json({ code: 1, message: err.message }))
+    }
 }
 
 
