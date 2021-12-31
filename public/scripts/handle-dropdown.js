@@ -1,4 +1,3 @@
-
 $(".dropdown").click(function (e) {
     e.stopPropagation()
     let parent = e.target
