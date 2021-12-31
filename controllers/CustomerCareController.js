@@ -14,9 +14,6 @@ class AdminController {
             .then(u => {
                 user = u
             })
-            .catch(err => {
-                return res.render("error")
-            })
 
         await Product.find({})
             .then(products => {
@@ -24,9 +21,6 @@ class AdminController {
                     user: user,
                     products: products
                 })
-            })
-            .catch(err => {
-                return res.render("error")
             })
     }
 
@@ -113,9 +107,6 @@ class AdminController {
             })
                 .then(() => {
                     return res.json({ code: 0, message: "success"})
-                })
-                .catch(err => {
-                    res.render("error")
                 })
         }
     }

@@ -11,9 +11,6 @@ class SiteController {
             .then(u => {
                 user = u
             })
-            .catch(err => {
-                return res.render("error")
-            })
 
         await Product.find({}).sort({ price: "desc" })
             .then(prs => {
@@ -34,9 +31,6 @@ class SiteController {
                 } else {
                     return res.render('store')
                 }
-            })
-            .catch(err => {
-                res.render("error")
             })
     }
 
@@ -63,6 +57,11 @@ class SiteController {
             .catch(err => {
                 console.log(err)
             })
+    }
+
+    error(req, res) {
+        res.status(404)
+        res.render('error')
     }
 }
 

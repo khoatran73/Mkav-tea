@@ -12,9 +12,6 @@ class AdminController {
             .then(users => {
                 userObj = users
             })
-            .catch(err => {
-                return res.render("error")
-            })
 
         await User.findOne({ email: req.session.email })
             .then(user => {
@@ -22,9 +19,6 @@ class AdminController {
                     users: userObj,
                     admin: user
                 })
-            })
-            .catch(err => {
-                return res.render("error")
             })
     }
 

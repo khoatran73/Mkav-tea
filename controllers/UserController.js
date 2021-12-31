@@ -160,9 +160,6 @@ class UserController {
                                 })
 
                         })
-                        .catch(err => {
-                            res.render("error")
-                        })
                 }
             })
     }

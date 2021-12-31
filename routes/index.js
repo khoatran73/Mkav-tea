@@ -6,6 +6,7 @@ const customerCareRouter = require('./customer-care')
 const paymentRouter = require('./payment')
 const salesmanRouter = require('./salesman')
 const shipperRouter = require('./shipper')
+const errorRouter = require('./error')
 
 module.exports = function route(app) {
     app.use("/", siteRouter)
@@ -16,4 +17,5 @@ module.exports = function route(app) {
     app.use("/payment", paymentRouter)
     app.use("/salesman", salesmanRouter)
     app.use("/shipper", shipperRouter)
+    app.use(errorRouter)
 }
