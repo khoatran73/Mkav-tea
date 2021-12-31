@@ -67,7 +67,7 @@ $(document).ready(function () {
 
     function getProductInfo(id) {
         $.ajax({
-            url: "http://localhost:3000/payment/" + id,
+            url: "/payment/" + id,
             type: "GET",
             success: function (res) {
                 if (res.code === 0) {
@@ -259,7 +259,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: "http://localhost:3000/payment/add-cart",
+            url: "/payment/add-cart",
             // data: JSON.stringify(cartArray),
             data: JSON.stringify(cartObj),
             processData: false,
@@ -303,7 +303,7 @@ $(document).ready(function () {
 
             $.ajax({
                 type: "DELETE",
-                url: "http://localhost:3000/payment/delete-cart/" + id,
+                url: "/payment/delete-cart/" + id,
                 success: function (res) {
                     if (res.code === 0) {
                         cartOrderItem.remove()
@@ -320,7 +320,7 @@ $(document).ready(function () {
         $("#remove-all-cart").click(function () {
             $.ajax({
                 type: "DELETE",
-                url: "http://localhost:3000/payment/delete-cart/",
+                url: "/payment/delete-cart/",
                 success: function (res) {
                     if (res.code === 0) {
                         $(".cart-order").empty()

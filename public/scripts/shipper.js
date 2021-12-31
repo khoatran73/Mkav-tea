@@ -4,7 +4,7 @@ $(".ship-finish").click(function () {
 
     $.ajax({
         type: "PUT",
-        url: "http://localhost:3000/shipper/update-status/" + id,
+        url: "/shipper/update-status/" + id,
         data: data,
         processData: false,
         dataType: "json",

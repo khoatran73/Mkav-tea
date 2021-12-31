@@ -5,7 +5,7 @@ $("#add-form").submit(e => {
 
     $.ajax({
         type: "POST",
-        url: "http://localhost:3000/customer-care/add-product",
+        url: "/customer-care/add-product",
         data: data,
         processData: false,
         contentType: false,
@@ -35,7 +35,7 @@ $("#edit-form").submit(e => {
 
     $.ajax({
         type: "PUT",
-        url: "http://localhost:3000/customer-care/edit-product/?id=" + id,
+        url: "/customer-care/edit-product/?id=" + id,
         data: data,
         processData: false,
         contentType: false,
@@ -62,7 +62,7 @@ $("#edit-form").submit(e => {
         const id = e.target.dataset.id
 
         $.ajax({
-            url: "http://localhost:3000/customer-care/" + id,
+            url: "/customer-care/" + id,
             type: "GET",
             success: function (res) {
                 $('#edit-modal').modal('show')
@@ -112,7 +112,7 @@ function deleteProduct(e) {
     const parent = e.target.parentNode.parentNode
 
     $.ajax({
-        url: "http://localhost:3000/customer-care/delete-product/?id=" + id,
+        url: "/customer-care/delete-product/?id=" + id,
         type: "DELETE",
         success: function (res) {
             if (res.code === 0) {

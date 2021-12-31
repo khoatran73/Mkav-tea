@@ -5,7 +5,7 @@ $("#add-form").submit(e => {
 
     $.ajax({
         type: "POST",
-        url: "http://localhost:3000/admin/add-employee",
+        url: "/admin/add-employee",
         data: data,
         processData: false,
         contentType: false,
@@ -66,7 +66,7 @@ $("#edit-form").submit(e => {
 
     $.ajax({
         type: "PUT",
-        url: "http://localhost:3000/admin/edit-employee/?_id=" + id,
+        url: "/admin/edit-employee/?_id=" + id,
         data: data,
         processData: false,
         contentType: false,
@@ -94,7 +94,7 @@ function deleteEmployee(e) {
     const parent = e.target.parentNode.parentNode
 
     $.ajax({
-        url: "http://localhost:3000/admin/delete-employee/?_id=" + id,
+        url: "/admin/delete-employee/?_id=" + id,
         type: "DELETE",
         success: function (res) {
             if (res.code === 0) {
@@ -149,7 +149,7 @@ function clickEditEmployeeButton() {
         const id = e.target.dataset.id
 
         $.ajax({
-            url: "http://localhost:3000/admin/" + id,
+            url: "/admin/" + id,
             type: "GET",
             success: function (res) {
                 updateEditModal(res.user)

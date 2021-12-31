@@ -52,7 +52,7 @@ window.onload = function () {
 
         $.ajax({
             type: "POST",
-            url: "http://localhost:3000/user/register",
+            url: "/user/register",
             data: data,
             processData: false,
             contentType: false,
@@ -84,7 +84,7 @@ window.onload = function () {
 
         $.ajax({
             type: "POST",
-            url: "http://localhost:3000/user/login",
+            url: "/user/login",
             data: data,
             processData: false,
             dataType: "json",

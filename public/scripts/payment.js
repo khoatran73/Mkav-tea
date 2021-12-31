@@ -1,6 +1,6 @@
 $("#pay").click(function () {
     $.ajax({
-        url: "http://localhost:3000/payment/get-phone-address-user",
+        url: "/payment/get-phone-address-user",
         type: "GET",
         success: function (res) {
             if (res.code === 0) {
@@ -56,7 +56,7 @@ $("#edit-form").submit(function (e) {
 
     $.ajax({
         type: "PUT",
-        url: "http://localhost:3000/payment/update-phone-address-user",
+        url: "/payment/update-phone-address-user",
         data: data,
         processData: false,
         dataType: "json",
@@ -82,7 +82,7 @@ $("#edit-form").submit(function (e) {
 
 function payment() {
     $.ajax({
-        url: "http://localhost:3000/payment/add-order",
+        url: "/payment/add-order",
         type: "GET",
         success: function (res) {
             if (res.code === 0) {
