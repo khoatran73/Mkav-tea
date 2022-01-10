@@ -16,6 +16,7 @@
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Baloo+2:wght@600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="/styles/loading.css">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="scripts/index.js"></script>
@@ -204,8 +205,8 @@
                                     </a>
                                 </div>
                             </div>
-                        <%}%>
-                    <%}%>
+                            <%}%>
+                                <%}%>
                 </div>
                 <div class="product-footer">
                     <a href="/order" class="btn btn-md">
@@ -328,11 +329,15 @@
             </div>
         </footer>
     </div>
+    <div id="loading">
+        <img src="/images/loading.svg" />
+    </div>
 
 </body>
 
 <script src="scripts/account-btn.js"></script>
 <script src="scripts/handle-dropdown.js"></script>
+<script src="/scripts/loading.js"></script>
 <script>
     document.querySelectorAll(".discount-tag").forEach(discount => {
         discount.innerHTML = Math.round(parseFloat(discount.innerHTML.trim())) + "%"

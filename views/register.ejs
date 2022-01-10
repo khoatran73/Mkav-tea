@@ -11,19 +11,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../styles/user.css">
+    <link rel="stylesheet" href="/styles/user.css">
+    <link rel="stylesheet" href="/styles/loading.css">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="../scripts/user.js"></script>
+    <script src="/scripts/user.js"></script>
     <title>Mkav Tea | Đăng Ký</title>
-    <link rel="shortcut icon" href="../images/mkav-tea/logo_transparent.png" />
+    <link rel="shortcut icon" href="/images/mkav-tea/logo_transparent.png" />
 </head>
 
 <body>
     <div class="wrapper">
         <div class="form">
             <div class="form-title">
-                <a href="/"><img src="../images/mkav-tea/logo_transparent.png" alt="Trang chủ" title="Trang Chủ"></a>
+                <a href="/"><img src="/images/mkav-tea/logo_transparent.png" alt="Trang chủ" title="Trang Chủ"></a>
             </div>
             <form class="form-content" id="register-form" action="/user/register" method="POST"
                 enctype="multipart/form-data">
@@ -74,7 +75,10 @@
             </form>
         </div>
     </div>
-
+    <div id="loading">
+        <img src="/images/loading.svg" />
+    </div>
 </body>
+<script src="/scripts/loading.js"></script>
 
 </html>

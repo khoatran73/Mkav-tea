@@ -6,14 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mkav Tea | Admin</title>
-    <link rel="shortcut icon" href="../images/mkav-tea/logo_transparent.png" />
+    <link rel="shortcut icon" href="/images/mkav-tea/logo_transparent.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Baloo+2:wght@600;700&Barlow:wght@400;500;600&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="../styles/admin.css">
+    <link rel="stylesheet" href="/styles/admin.css">
+    <link rel="stylesheet" href="/styles/loading.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -32,7 +33,7 @@
         <header class="order-header">
             <div class="container">
                 <div class="order-header-logo">
-                    <a href="/"><img src="../images/mkav-tea/logo_transparent.png" alt=""></a>
+                    <a href="/"><img src="/images/mkav-tea/logo_transparent.png" alt=""></a>
                 </div>
                 <li class="btn-group user-group">
                     <a href="/admin/?tab=employee-manager"><img src="<%= admin.image %>" alt=""></a>
@@ -279,7 +280,11 @@
             </div>
         </div>
     </div>
+    <div id="loading">
+        <img src="/images/loading.svg" />
+    </div>
 </body>
-<script src="../scripts/admin.js"></script>
+<script src="/scripts/admin.js"></script>
+<script src="/scripts/loading.js"></script>
 
 </html>
