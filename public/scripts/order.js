@@ -255,21 +255,15 @@ $(document).ready(function () {
             toppings: toppingArr
         }
 
-        // cartArray.push(cartObj)
-
         $.ajax({
             type: "POST",
             url: "/payment/add-cart",
-            // data: JSON.stringify(cartArray),
             data: JSON.stringify(cartObj),
-            processData: false,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (res) {
-
             },
             error: function (err) {
-
             }
         })
 

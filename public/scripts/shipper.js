@@ -10,6 +10,7 @@ $(".ship-finish").click(function () {
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         success: function (res) {
+            console.log(res)
             if (res.code === 0) {
                 location.reload()
             }

@@ -18,7 +18,7 @@ class SalesmanController {
         const status = req.body.status
 
         if (!_id) return res.json({ code: 1, message: "invalid _id" })
-        if (!status) return res.json({ code: 1, message: "status not found" })
+        if (status == null) return res.json({ code: 1, message: "status not found" })
 
 
         await Order.updateOne({ _id: _id }, { status: status })
